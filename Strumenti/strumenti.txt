@@ -1,0 +1,4 @@
+https://github.com/rla/node-swipl
+
+
+https://github.com/khueue/prolongo
