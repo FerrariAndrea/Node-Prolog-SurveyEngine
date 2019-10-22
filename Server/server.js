@@ -4,9 +4,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const http = require('http');
-const {NODE_PORT_ON_LOCALHOST} = require('./costanti/connessione');
+const PORT = require('./costanti/connessione').NODE_PORT_ON_LOCALHOST;
 const generalRouter = express.Router();
-const {Testunit} = require('./test/testunit');
+const Testunit = require('./test/testunit');
 
 generalRouter.route('/Test1').all(Testunit.TestProlog);
 
