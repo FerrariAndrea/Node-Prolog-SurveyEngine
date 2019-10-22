@@ -3,33 +3,12 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
-const mongoose = require('mongoose');
-const config = require('./costanti/DB.js');
-
-
-const MyConsole=require('./components/MyConsole');
-const MySocket =require('./components/MySocket');
-const generalRouter = require('./router/GeneralRouter.js');
-
-
+const http = require('http');
 const {NODE_PORT_ON_LOCALHOST} = require('./costanti/connessione');
-// process.env.port required by heroku
-const PORT = process.env.PORT || NODE_PORT_ON_LOCALHOST;
+const generalRouter = express.Router();
+const {Testunit} = require('./test/testunit');
 
-
-mongoose.Promise = global.Promise;
-mongoose.connect(config.DB, {
-	useNewUrlParser: true,
-	socketTimeoutMS: 0,
-	keepAlive: true,
-  reconnectTries: 30,
-  useCreateIndex: true,   //aggiunta
-  useFindAndModify: false //aggiunta
-	}).then(
-  () => {console.log('Database is connected') },
-  err => { console.log('Can not connect to the database'+ err)}
-);
+generalRouter.route('/Test1').all(Testunit.TestProlog);
 
 const server = express()
   //.use((req, res) => res.sendFile(INDEX) )
@@ -45,5 +24,4 @@ const server = express()
   }) 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
-const socket = new MySocket( { server } );
+//var server = http.createServer(server);
