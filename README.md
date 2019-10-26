@@ -1,9 +1,9 @@
 # CompilationHelper
 
 #Step 1)
-	+1	Install https://www.swi-prolog.org/download/stable
-	+2	Add swipl on PATH
-	+3 	test id swipl is reachable, on cmd try: 'swipl --version'
+		Install https://www.swi-prolog.org/download/stable
+		Add swipl on PATH
+		test id swipl is reachable, on cmd try: 'swipl --version'
 	
 #Step 2)
 	clone the repository
