@@ -9,4 +9,6 @@
 # Step 3)
 	npm instal
 # Step 4)
-#	npm start
+	npm start
+
+#Thx to git@github.com:rla/node-swipl.git for the prolog-node interface
