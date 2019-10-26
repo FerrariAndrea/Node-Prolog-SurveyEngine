@@ -1,0 +1,15 @@
+::1 - GET / HTTP/1.1 500 1143 - 7.059 ms
+::1 - GET / HTTP/1.1 200 27056 - 12.147 ms
+::1 - GET /public/stylesheets/buttons.css HTTP/1.1 500 1390 - 3.493 ms
+::1 - GET /socket.io/socket.io.js HTTP/1.1 500 1390 - 6.988 ms
+::1 - GET /favicon.ico HTTP/1.1 500 1390 - 1.066 ms
+::1 - GET / HTTP/1.1 200 8259 - 1.870 ms
+::1 - GET /public/stylesheets/buttons.css HTTP/1.1 500 1390 - 1.300 ms
+::1 - GET /favicon.ico HTTP/1.1 500 1390 - 0.825 ms
+::1 - GET / HTTP/1.1 304 - - 11.863 ms
+::1 - GET /public/stylesheets/buttons.css HTTP/1.1 500 1390 - 3.315 ms
+::1 - GET /favicon.ico HTTP/1.1 500 1390 - 0.968 ms
+::1 - GET / HTTP/1.1 200 8083 - 11.043 ms
+::1 - GET /favicon.ico HTTP/1.1 500 1390 - 3.496 ms
+::1 - GET / HTTP/1.1 200 8083 - 11.635 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 6.184 ms
