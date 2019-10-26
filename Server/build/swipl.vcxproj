@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{320476DC-239E-F715-EF23-F8640B561609}</ProjectGuid>
+    <ProjectGuid>{09A63175-6116-B4D6-26B0-50BBA9D17E34}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>swipl</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
@@ -48,16 +48,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andrea Ferrari\.node-gyp\10.15.2\include\node;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\src;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\config;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\openssl\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\uv\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\zlib;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\TSG\.node-gyp\8.9.4\include\node;C:\Users\TSG\.node-gyp\8.9.4\src;C:\Users\TSG\.node-gyp\8.9.4\deps\uv\include;C:\Users\TSG\.node-gyp\8.9.4\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj /MP %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4351;4355;4800;4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>false</ExceptionHandling>
       <MinimalRebuild>false</MinimalRebuild>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>false</OmitFramePointers>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -69,7 +68,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\x64\node.lib&quot;;c:\program files\swipl\bin\libswipl.dll.a</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\TSG\.node-gyp\8.9.4\x64\node.lib&quot;;c:\program files\swipl\bin\libswipl.dll.a</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -84,24 +83,23 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andrea Ferrari\.node-gyp\10.15.2\include\node;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\src;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\config;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\openssl\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\uv\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\zlib;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\TSG\.node-gyp\8.9.4\include\node;C:\Users\TSG\.node-gyp\8.9.4\src;C:\Users\TSG\.node-gyp\8.9.4\deps\uv\include;C:\Users\TSG\.node-gyp\8.9.4\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=swipl;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andrea Ferrari\.node-gyp\10.15.2\include\node;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\src;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\config;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\openssl\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\uv\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\zlib;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\TSG\.node-gyp\8.9.4\include\node;C:\Users\TSG\.node-gyp\8.9.4\src;C:\Users\TSG\.node-gyp\8.9.4\deps\uv\include;C:\Users\TSG\.node-gyp\8.9.4\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4351;4355;4800;4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>false</ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>true</OmitFramePointers>
       <Optimization>Full</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -115,17 +113,18 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Lib>
-      <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\x64\node.lib&quot;;c:\program files\swipl\bin\libswipl.dll.a</AdditionalDependencies>
-      <AdditionalOptions>/ignore:4199 /LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\TSG\.node-gyp\8.9.4\x64\node.lib&quot;;c:\program files\swipl\bin\libswipl.dll.a</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <DelayLoadDLLs>iojs.exe;node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <MapExports>true</MapExports>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)lib$(ProjectName).node</OutputFile>
@@ -135,7 +134,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andrea Ferrari\.node-gyp\10.15.2\include\node;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\src;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\config;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\openssl\openssl\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\uv\include;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\zlib;C:\Users\Andrea Ferrari\.node-gyp\10.15.2\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\TSG\.node-gyp\8.9.4\include\node;C:\Users\TSG\.node-gyp\8.9.4\src;C:\Users\TSG\.node-gyp\8.9.4\deps\uv\include;C:\Users\TSG\.node-gyp\8.9.4\deps\v8\include;..\src;c:\program files\swipl\include;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=swipl;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
