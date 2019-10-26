@@ -7,8 +7,12 @@
 # Step 2)
 	clone the repository
 # Step 3)
-	npm instal
+	Open shell as admin, navigate to the repo dir ad execute:
+	npm install --global --production windows-build-tools
 # Step 4)
+	npm instal
+# Step 5)
 	npm start
 
-#Thx to git@github.com:rla/node-swipl.git for the prolog-node interface
+# Thx to 
+	https://github.com/rla/node-swipl for the prolog-node interface
