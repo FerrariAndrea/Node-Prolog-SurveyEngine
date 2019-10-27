@@ -1,44 +1,28 @@
 {
-  "name": "CompilationHelper",
+  "name": "compilation_helper",
   "version": "1.0.0",
-  "main": "server.js",
   "description": "",
-  "keywords": [
-    "swi",
-    "prolog",
-    "swipl",
-    "logic"
-  ],
-  "license": "LGPL-3.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:FerrariAndrea/CompilationHelper.git"
+    "url": "git+ssh://git@github.com/FerrariAndrea/CompilationHelper.git"
   },
-  "directories": {},
-  "engines": {
-    "node": ">= 7"
+  "author": "Andrea Ferrari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FerrariAndrea/CompilationHelper/issues"
   },
+  "homepage": "https://github.com/FerrariAndrea/CompilationHelper#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
-    "fs": "0.0.1-security",
-    "http-errors": "^1.7.3",
     "morgan": "^1.9.1",
-    "nan": "^2.4.0"
-  },
-  "devDependencies": {
-    "mocha": "^6.2.2",
-    "node-gyp": "^6.0.0"
-  },
-  "files": [
-    "src",
-    "lib",
-    "tests",
-    "scripts",
-    "binding.gyp",
-    "package.json"
-  ]
+    "node-gyp": "^6.0.0",
+    "rebuild": "^0.1.2",
+    "swipl": "^1.0.3"
+  }
 }
