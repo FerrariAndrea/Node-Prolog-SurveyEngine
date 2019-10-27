@@ -1,7 +1,7 @@
 /*
  * frontend/frontendServer.js 
  */
-var appl   = require('./applCode');  //previously was app;
+var appl   = require('./appServer/applCode');  //previously was app;
 var http   = require('http');
 var port = 8080;
 

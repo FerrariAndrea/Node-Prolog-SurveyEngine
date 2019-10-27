@@ -1,0 +1,10 @@
+::1 - GET /test HTTP/1.1 200 11 - 6.192 ms
+::1 - GET /test HTTP/1.1 200 11 - 5.519 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 2.061 ms
+::1 - GET /test1 HTTP/1.1 500 1210 - 8.718 ms
+::1 - GET /test1 HTTP/1.1 500 1643 - 12.567 ms
+::1 - GET /test1 HTTP/1.1 500 1457 - 12.173 ms
+::1 - GET /test1 HTTP/1.1 500 1457 - 1.176 ms
+::1 - GET /test1 HTTP/1.1 200 6 - 46.339 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 2.157 ms
+::1 - GET /test2 HTTP/1.1 500 1602 - 3.710 ms
