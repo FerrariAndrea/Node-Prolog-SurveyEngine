@@ -15,6 +15,10 @@ module.exports ={
     test2 : function(){
         swipl.call('assert(provaProlog(A,B):=A == B,A != 0.)');
         return(swipl.call('provaProlog(2,B)').B==2);        
+    }, 
+    test3 : function(){
+        swipl.call('assert(thisIsATest(45))');
+        return(swipl.call('current_predicate(thisIsATest)'));        
     }
 
 }
