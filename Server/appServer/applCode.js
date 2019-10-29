@@ -41,6 +41,16 @@ app.get('/info', function (req, res) {
 	res.send('This is the CompilationHelper!')
 });
 
+//js
+app.get('/myAjax.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/myAjax.js')); 
+});
+
+//css
+app.get('/style.css',function(req,res){
+    res.sendFile(path.join(__dirname, '/css/style.css')); 
+});
+
 app.get('/', function (req, res) {
 	res.render("index");
 });
