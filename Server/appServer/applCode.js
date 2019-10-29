@@ -59,11 +59,21 @@ app.get('/', function (req, res) {
 /*
 * ====================== CMD ================
 */
+app.get('/assert', function (req, res) {
+	if(PrologTestUnit.test1()){
+		res.send('<p style="color: green;">Test1 Passed, Prolog work :)</p>')
+	}else{
+		res.send('<p style="color: red;">Test1 NOT Passed, Prolog not work :(</p>')
+	}
+});
+/*
+* ====================== TEST ================
+*/
 app.get('/test1', function (req, res) {
 	if(PrologTestUnit.test1()){
-		res.send("Passed")
+		res.send('<p style="color: green;">Test1 Passed, Prolog work :)</p>')
 	}else{
-		res.send("NOT Passed")
+		res.send('<p style="color: red;">Test1 NOT Passed, Prolog not work :(</p>')
 	}
 });
 app.get('/test2', function (req, res) {
@@ -73,7 +83,15 @@ app.get('/test2', function (req, res) {
 		res.send("NOT Passed")
 	}
 });
-
+app.get('/test3', function (req, res) {
+	var ris = PrologTestUnit.test3();
+	console.log("test3--->"+ris);
+	if(ris){
+		res.send("Passed")
+	}else{
+		res.send("NOT Passed")
+	}
+});
 /*
 * ====================== REPRESENTATION ================
 */

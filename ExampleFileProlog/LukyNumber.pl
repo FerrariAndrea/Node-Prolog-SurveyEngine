@@ -29,5 +29,3 @@ changeAnswere(X):-retract(nextAnswer(_)),assert(nextAnswer(X)).
 resetAnswer:-changeAnswere(1).
 next(TextAnswer):-nextAnswer(X),answer(X,TextAnswer,_,_).
 setResponse(X):-nextAnswer(Z),answer(Z,_,X,Y),changeAnswere(Y).
-
-verify1(Name, Arguments):-Term =.. [Name | Arguments],callable(Term).
