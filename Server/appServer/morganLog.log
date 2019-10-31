@@ -234,3 +234,12 @@
 ::1 - GET /style.css HTTP/1.1 304 - - 18.496 ms
 ::1 - GET /favicon.ico HTTP/1.1 200 - - 7.708 ms
 ::1 - GET /test4 HTTP/1.1 200 10 - 37.358 ms
+::1 - GET /test4 HTTP/1.1 200 6 - 39.791 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 4.158 ms
+::1 - GET / HTTP/1.1 200 1298 - 34.708 ms
+::1 - GET /style.css HTTP/1.1 304 - - 7.789 ms
+::1 - GET /myAjax.js HTTP/1.1 200 769 - 15.342 ms
+::1 - GET / HTTP/1.1 304 - - 42.395 ms
+::1 - GET /myAjax.js HTTP/1.1 304 - - 8.604 ms
+::1 - GET /style.css HTTP/1.1 304 - - 15.439 ms
+::1 - GET /init?typeInit=Perizie HTTP/1.1 500 1274 - 10.949 ms

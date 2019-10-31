@@ -13,7 +13,7 @@ class PorlogEngine{
                     load(module_name);
                 }
             }
-       };
+       };   
        this.test=function(){
            var x =readX("answer(1,X,'si',2)");
             return (x=='Hai un gatto?');

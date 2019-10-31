@@ -9,7 +9,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const index = require('./routes/index');
 const PrologTestUnit = require('./prolog/test');
-const PorlogEngine = require('./prolog/prologEngine')
+const PorlogEngine = require('./prolog/prologEngine');
+var url = require('url');
 
 var app = express();
 
@@ -60,12 +61,12 @@ app.get('/', function (req, res) {
 /*
 * ====================== CMD ================
 */
-app.get('/assert', function (req, res) {
-	if(PrologTestUnit.test1()){
-		res.send('<p style="color: green;">Test1 Passed, Prolog work :)</p>')
-	}else{
-		res.send('<p style="color: red;">Test1 NOT Passed, Prolog not work :(</p>')
-	}
+app.get('/init', function (req, res) {
+
+	console.log("---->SONO QUI");	
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	console.log("---->"+query);	
 });
 /*
 * ====================== TEST ================
