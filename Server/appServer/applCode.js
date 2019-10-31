@@ -10,6 +10,7 @@ const fs = require('fs');
 const index = require('./routes/index');
 const PrologTestUnit = require('./prolog/test');
 const PorlogEngine = require('./prolog/prologEngine');
+const resolveModuleName = require('./prolog/pl/nameResolver');
 var url = require('url');
 
 var app = express();
@@ -62,11 +63,55 @@ app.get('/', function (req, res) {
 * ====================== CMD ================
 */
 app.get('/init', function (req, res) {
-
-	console.log("---->SONO QUI");	
 	var url_parts = url.parse(req.url, true);
-	var query = url_parts.query;
-	console.log("---->"+query);	
+	var typeInit = url_parts.query.typeInit;
+	console.log("Init of "+typeInit);
+	try{
+		PorlogEngine.Istance.Init(resolveModuleName(typeInit));
+		res.send('<p style="color: green;">Init of '+typeInit+' success</p>')
+	}catch(err){
+		console.log("Init error: "+ err);
+		res.send('<p style="color: red;">Error on init of '+typeInit+'</p>')
+	}
+	
+});
+app.get('/startSurvey', function (req, res) {
+	console.log("StartSurvey");
+	try{
+		var ans =PorlogEngine.Istance.StartSurvey();
+		if(ans!==false){
+				res.send('<p style="color: white;">'+ans+'</p>')
+		}else{
+			console.log("StartSurvey error: PorlogEngine.Istance.StartSurvey()==false");
+			res.send('<p style="color: red;">Error on startSurvey</p>')
+		}
+	}catch(err){
+		console.log("StartSurvey error: "+ err);
+		res.send('<p style="color: red;">Error on startSurvey</p>')
+	}	
+});
+app.get('/setResp', function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var respToAns = url_parts.query.respToAns;
+	console.log("SetResp");
+	try{
+		var ans =PorlogEngine.Istance.SetResp(respToAns);
+		if(ans!==null){
+			if(!ans){
+				res.send('<p style="color: white;">'+ans+'</p>')
+			}else{
+				var result=PorlogEngine.Istance.GetResult();
+				res.send('<p style="color: green;">Survey finished with result: '+result+'</p>')
+			}
+		}else{
+			var oldAns =PorlogEngine.Istance.GetAnswer();
+			//QUI SI POTRBBE FARE DEL REASONING per capire le risposte possibili da dare
+			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
+		}
+	}catch(err){
+		console.log("SetResp error: "+ err);
+		res.send('<p style="color: red;">Error on setResp</p>')
+	}	
 });
 /*
 * ====================== TEST ================

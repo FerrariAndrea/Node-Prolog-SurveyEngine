@@ -28,13 +28,18 @@
 			</div>
 		</center>
 	</div>
-	<div id="workDiv"  style="height: 60vmin;background-color:rgb(44, 38, 85);">
+	<div id="workDiv"   style="height: 60vmin;background-color:rgb(44, 38, 85);">
+
 		<center>
 			<br>
-			<a onclick="loadTests();" class="myButton">TEST</a>
+			<button disabled id="StartSurveyButton" onclick="startSurvey();" class="myButton">Start Survey</button>
 			<br>
 			<div id="resp">
 
+			</div>
+			<br>
+			<div id="answ"  >
+				<label>Your answer:</label><input type="text" id="myAns"><button disabled id="SetRespButton"  onclick="setResp();" class="myButton">Reply</button>
 			</div>
 		</center>
 	</div>

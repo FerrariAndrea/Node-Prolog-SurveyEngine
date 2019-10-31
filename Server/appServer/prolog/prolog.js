@@ -9,12 +9,18 @@ module.exports ={
     retract : function(clause){
         return swipl.call('retract('+clause+')');
     },
-    readX: function(roule){
-        const ret = swipl.call('clause('+roule+',_)');        
-        if (ret) {
-            return ret.X;
+    readX: function(roule,dontExe=false){
+        var ret ;
+        if(dontExe){
+             ret = swipl.call('clause('+roule+',_)'); 
+        }else{
+            ret = swipl.call(roule); 
+        }
+        //console.log("readX ris-->" , ret.X);       
+        if (ret===undefined || ret === null || ret===false) {            
+            return false;   
         } else { 
-            return false;      
+            return ret.X;   
         }
     },
     clear: function(){
@@ -35,8 +41,8 @@ module.exports ={
              
             }
             line++;
-        });  
-        console.log("FINISH")
+        });
     }
+
     
 }
