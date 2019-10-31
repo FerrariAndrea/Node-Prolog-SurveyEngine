@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const index = require('./routes/index');
 const PrologTestUnit = require('./prolog/test');
+const PorlogEngine = require('./prolog/prologEngine')
 
 var app = express();
 
@@ -87,6 +88,14 @@ app.get('/test3', function (req, res) {
 	var ris = PrologTestUnit.test3();
 	console.log("test3--->"+ris);
 	if(ris){
+		res.send("Passed")
+	}else{
+		res.send("NOT Passed")
+	}
+});
+app.get('/test4', function (req, res) {
+	PorlogEngine.Istance.Init('LukyNumber.pl');
+	if(PorlogEngine.Istance.test()){
 		res.send("Passed")
 	}else{
 		res.send("NOT Passed")
