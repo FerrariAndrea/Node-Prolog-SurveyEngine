@@ -147,6 +147,12 @@ app.get('/test4', function (req, res) {
 		res.send("NOT Passed")
 	}
 });
+app.get('/test5', function (req, res) {
+	res.send(PrologTestUnit.test4());
+});
+app.get('/test6', function (req, res) {
+	res.send(PrologTestUnit.test5());
+});
 /*
 * ====================== REPRESENTATION ================
 */

@@ -1,4 +1,4 @@
-const {assert,retract,readX,load,clear} = require('./prolog');
+const {assert,retract,readX,load,clear,exe} = require('./prolog');
 const swipl = require('swipl');
 class PorlogEngine{
     constructor(){
@@ -21,16 +21,22 @@ class PorlogEngine{
        };
        this.StartSurvey=function(){
                if(swipl.call("resetAnswer")){
-                 return readX('getActualAnswer(X)');
+                   var ris = readX('getActualAnswer(X)');
+                   if(ris.length>0 && ris[0].X !== undefined){
+                      return ris[0].X;
+                   }else{                       
+                    return false;
+                   }
                }else{
                     return false;
                }
        };
        this.SetResp=function(resp){
-           const ris =swipl.call("setResponse('"+resp+"')");
+           const ris =exe("setResponse('"+resp+"').");
            console.log("--------------->",ris);
             if(ris){
-                if(readX('nextAnswer(X)')>0){                    
+                var x =readX('nextAnswer(X)');
+                if(x.length>0 && x[0]>0){                    
                     return readX('getActualAnswer(X)');
                 }else{//X ==-1 --> hai finito il questionario
                     return false;
@@ -46,6 +52,8 @@ class PorlogEngine{
                 return value !== 'no result as default';            
              });
              return filtered;
+           }else if(ris.length>0){
+               return ris[0];
            }else{
                return ris;
            }
