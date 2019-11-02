@@ -9,7 +9,7 @@ module.exports ={
     retract : function(clause){
         return swipl.call('retract('+clause+')');
     },
-    readX: function(roule,dontExe=false){
+    readX: function(roule){
         // var ret ;
         // if(dontExe){
         //      ret = swipl.call('clause('+roule+',_)'); 
@@ -22,30 +22,40 @@ module.exports ={
         // } else { 
         //     return ret.X;   
         // }
-        var query;
-        if(dontExe){
-            query =  new swipl.Query('clause('+roule+',_)'); 
-        }else{
-            query =  new swipl.Query(roule); 
-        }
-        var ret=false;
-        var ris= Array();       
-        while (ret = query.next()) {
+        console.log("[***] Query readX ---> ",roule)
+        var query=  new swipl.Query('clause('+roule+',_)');
+        var ret=true;
+        var ris= Array();
+        while (ret!==false) {
+            ret = query.next();
             ris.push(ret);
         } 
-        query.close();
+        if(ris.length>1 || ris[0]!==false){
+            console.log("[***] Query readX chiusa!!!!!!!")
+            query.close();
+        }
         return(ris); 
     }, 
-    exe: function(roule){
+    exeAndRead: function(roule){
+        console.log("[***] Query EXE_READ ---> ",roule)
         var query=  new swipl.Query(roule); 
-        var ret= false;
-        var ris= Array();
-        while (ret = query.next()) {
+        var ret= true;
+        var ris= Array();     
+        while (ret!==false) {
+            ret = query.next();
             ris.push(ret);
+        } 
+        //console.log("*********----------->", ris);
+        if(ris.length>1 || ris[0]!==false){
+            console.log("[***] Query exe chiusa!!!!!!!")
+            query.close();
         }
-        //console.log("exe-------->",ris);        
-        query.close();
-        return ris.length>0; 
+        return(ris); 
+    },
+    exe: function(roule){
+        console.log("[***] Query EXE ---> ",roule)
+        var ris=  swipl.call(roule); 
+        return(ris); 
     },
     clear: function(){
         return swipl.call('retractall(answer(_,_,_,_))');        

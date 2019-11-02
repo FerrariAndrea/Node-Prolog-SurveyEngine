@@ -21,15 +21,19 @@ module.exports ={
         return(swipl.call('current_predicate(thisIsATest)'));        
     },
     test4 : function(){
-        swipl.call('assert(thisIsATest(45))');
-       // return(swipl.call('thisIsATest(5)'));   //DON'T WORK    
-       const query = new swipl.Query('thisIsATest(5)');//<---------- THIS IS OK
-        let ret = null;
-        while (ret = query.next()) {
-            console.log(`Variable X value is: ${ret.X}`);
-        }         
-        query.close();
-        return(ret); 
+        swipl.call('assert(thisIsATest(45))'); 
+        var query = new swipl.Query('thisIsATest(5).');
+        let ret = true;
+        var ris ;
+        while (ret!==false) {
+            ret = query.next();
+            console.log(`Variable X value is: ${ret}`);
+            ris = ret;
+        }  
+        if(ris!==false){
+            query.close();
+        }  
+        return(ris); 
     },
     test5 : function(){
         swipl.call('assert(user1:thisIsATest(45))');        

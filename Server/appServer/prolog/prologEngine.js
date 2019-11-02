@@ -1,5 +1,4 @@
-const {assert,retract,readX,load,clear,exe} = require('./prolog');
-const swipl = require('swipl');
+const {assert,retract,readX,load,clear,exeAndRead,exe} = require('./prolog');
 class PorlogEngine{
     constructor(){
         
@@ -20,24 +19,33 @@ class PorlogEngine{
             return (x=='Hai un gatto?');
        };
        this.StartSurvey=function(){
-               if(swipl.call("resetAnswer")){
-                   var ris = readX('getActualAnswer(X)');
+               if(exe("resetAnswer")){
+                   var ris = exeAndRead('getActualAnswer(X)');
+                   console.log("-------->",ris)
                    if(ris.length>0 && ris[0].X !== undefined){
+                      this.localAnswer=ris[0].X;
                       return ris[0].X;
                    }else{                       
-                    return false;
+                     return false;
                    }
                }else{
                     return false;
                }
        };
        this.SetResp=function(resp){
-           const ris =exe("setResponse('"+resp+"').");
-           console.log("--------------->",ris);
+           
+           const ris =exe("setResponse("+resp+")");
             if(ris){
-                var x =readX('nextAnswer(X)');
-                if(x.length>0 && x[0]>0){                    
-                    return readX('getActualAnswer(X)');
+                var x =exeAndRead('nextAnswer(X)');
+                if(x.length>0 && x[0].X>0){        
+                    var ans = exeAndRead('getActualAnswer(X)');
+                    if(ans.length>0 && ans[0].X !== undefined){
+                       this.localAnswer=ans[0].X;
+                       return this.localAnswer;
+                    }else{     
+                        console.log("Error to handle?");                  
+                         return false; //errore ?!?!
+                    }                    
                 }else{//X ==-1 --> hai finito il questionario
                     return false;
                 }
@@ -46,18 +54,24 @@ class PorlogEngine{
             }
         };
         this.GetResult=function(){
-           var ris =readX('getResult(X)');
-           if(Array.isArray(ris)){
-             var filtered = ris.filter(function(value, index, arr){
-                return value !== 'no result as default';            
-             });
-             return filtered;
-           }else if(ris.length>0){
-               return ris[0];
+           var ris =exeAndRead('getResult(X)');
+           //console.log("----result----------->", ris);
+           if(ris.length<3){
+                var filtered = ris.filter(function(value, index, arr){
+                    return (value!== false && value!==undefined);            
+                });
+                return filtered;
            }else{
-               return ris;
+                var filtered = ris.filter(function(value, index, arr){
+                    return (value!== false && value!==undefined && value.X !== 'no result as default');            
+                });
+                return filtered;
            }
+          
         };
+        this.GetLocalAnswer = function(){
+            return this.localAnswer;
+        }
     }
 
   

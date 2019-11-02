@@ -97,14 +97,15 @@ app.get('/setResp', function (req, res) {
 	try{
 		var ans =PorlogEngine.Istance.SetResp(respToAns);
 		if(ans!==null){
-			if(!ans){
+			if(ans!==false){
 				res.send('<p style="color: white;">'+ans+'</p>')
 			}else{
 				var result=PorlogEngine.Istance.GetResult();
-				res.send('<p style="color: green;">Survey finished with result: '+result+'</p>')
+				console.log("------>", result)
+				res.send('<p style="color: green;">Survey finished with result: '+result[result.length-1].X+'</p>')
 			}
 		}else{
-			var oldAns =PorlogEngine.Istance.GetAnswer();
+			var oldAns =PorlogEngine.Istance.GetLocalAnswer();
 			//QUI SI POTRBBE FARE DEL REASONING per capire le risposte possibili da dare
 			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 		}
@@ -139,7 +140,7 @@ app.get('/test3', function (req, res) {
 		res.send("NOT Passed")
 	}
 });
-app.get('/test4', function (req, res) {
+app.get('/testx', function (req, res) {
 	PorlogEngine.Istance.Init('LukyNumber.pl');
 	if(PorlogEngine.Istance.test()){
 		res.send("Passed")
@@ -147,10 +148,10 @@ app.get('/test4', function (req, res) {
 		res.send("NOT Passed")
 	}
 });
-app.get('/test5', function (req, res) {
+app.get('/test4', function (req, res) {
 	res.send(PrologTestUnit.test4());
 });
-app.get('/test6', function (req, res) {
+app.get('/test5', function (req, res) {
 	res.send(PrologTestUnit.test5());
 });
 /*
