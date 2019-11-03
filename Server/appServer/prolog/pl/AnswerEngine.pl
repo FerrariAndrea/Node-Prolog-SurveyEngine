@@ -1,9 +1,8 @@
 %#################################MOTORE DOMANDE
-nextAnswer(1)
-changeAnswere(X):-(retract(nextAnswer(_)),assert(nextAnswer(X)))
-resetAnswer:-(changeAnswere(1))
-getActualAnswer(Ans):-(nextAnswer(X),clause(answer(X,Ans,_,_),_))
-setResponse(X):-(nextAnswer(Z),answer(Z,_,X,Y),changeAnswere(Y))
-getResult('no result as default')
+MODULE_SESSION:nextAnswer(1)
+MODULE_SESSION:changeAnswere(X):-(retract(MODULE_SESSION:nextAnswer(_)),assert(MODULE_SESSION:nextAnswer(X)))
+MODULE_SESSION:resetAnswer:-(MODULE_SESSION:changeAnswere(1))
+MODULE_SESSION:getActualAnswer(Ans):-(MODULE_SESSION:nextAnswer(X),clause(MODULE_SESSION:answer(X,Ans,_,_),_))
+MODULE_SESSION:setResponse(X):-(MODULE_SESSION:nextAnswer(Z),MODULE_SESSION:answer(Z,_,X,Y),MODULE_SESSION:changeAnswere(Y))
+MODULE_SESSION:getResult('no result as default')
 %###################################
-%getValidAnswer(X):-(nextAnswer(Y),clause(answer(Y,_,X,_),Z))

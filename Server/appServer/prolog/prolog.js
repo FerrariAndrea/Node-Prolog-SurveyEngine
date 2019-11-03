@@ -1,15 +1,16 @@
+// REMEMBER------------>the word "MODULE_SESSION:" is reserved
 const swipl = require('swipl');
 var fs = require('fs');
  
 module.exports ={
 
-    assert : function(clause){
-        return swipl.call('assert('+clause+')');
+    assert : function(clause,session){
+        return swipl.call('assert('+'user'+session+':'+clause+')');
     },
-    retract : function(clause){
-        return swipl.call('retract('+clause+')');
+    retract : function(clause,session){
+        return swipl.call('retract('+'user'+session+':'+clause+')');
     },
-    readX: function(roule){
+    readX: function(roule,session){
         // var ret ;
         // if(dontExe){
         //      ret = swipl.call('clause('+roule+',_)'); 
@@ -23,7 +24,7 @@ module.exports ={
         //     return ret.X;   
         // }
         console.log("[***] Query readX ---> ",roule)
-        var query=  new swipl.Query('clause('+roule+',_)');
+        var query=  new swipl.Query('clause('+'user'+session+':'+roule+',_)');
         var ret=true;
         var ris= Array();
         while (ret!==false) {
@@ -36,9 +37,9 @@ module.exports ={
         }
         return(ris); 
     }, 
-    exeAndRead: function(roule){
+    exeAndRead: function(roule,session){
         console.log("[***] Query EXE_READ ---> ",roule)
-        var query=  new swipl.Query(roule); 
+        var query=  new swipl.Query('user'+session+':'+roule); 
         var ret= true;
         var ris= Array();     
         while (ret!==false) {
@@ -52,13 +53,13 @@ module.exports ={
         }
         return(ris); 
     },
-    exe: function(roule){
+    exe: function(roule,session){
         console.log("[***] Query EXE ---> ",roule)
-        var ris=  swipl.call(roule); 
+        var ris=  swipl.call('user'+session+':'+roule); 
         return(ris); 
     },
-    clear: function(){
-        return swipl.call('retractall(answer(_,_,_,_))');        
+    clear: function(session){
+        return swipl.call('clear_module(user'+session+')');        
     },
     load: function(module_name,session){       
         //perchè eseguire tanti assert invece di un'unico:
@@ -69,12 +70,13 @@ module.exports ={
         var line =0;
         contents.split('\n').forEach(function(element) {
             if(element!==undefined && element[0]!=='%'  && element.length>0){
+                const clause='assert('+element.replace(/MODULE_SESSION:/g,"user"+session+":")+')';
                try{
-                if(!swipl.call('assert('+element+')')){
-                    console.log("Fail load module "+ module_name+"["+line+"]: assert("+element+").")
+                if(!swipl.call(clause)){
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+ clause)
                   }
-               }catch(Exception){
-                    console.log("Fail load module "+ module_name+"["+line+"]: assert("+element+").")
+               }catch(err){
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+clause+". \n\t\t Error:"+err)
                }
              
             }

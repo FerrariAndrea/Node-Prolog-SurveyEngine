@@ -1,29 +1,28 @@
-const {assert,retract,readX,load,clear,exeAndRead,exe} = require('./prolog');
+// REMEMBER------------>the word "MODULE_SESSION:" is reserved
+const {readX,load,clear,exeAndRead,exe} = require('./prolog');
+const swipl = require('swipl');
 class PorlogEngine{
     constructor(){
-        
-       this.Init=function (module_name){
+       swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');
+      
+       this.Init=function (module_name,session){
             clear();
             if(module_name!==undefined){
                 if(Array.isArray(module_name)){
                     module_name.forEach(element => {
-                        load(element);
+                        load(element,session.GetMyId());
                     });
                 }else{
-                    load(module_name);
+                    load(module_name,session.GetMyId());
                 }
             }
-       };   
-       this.test=function(){
-           var x =readX("answer(1,X,'si',2)");
-            return (x=='Hai un gatto?');
-       };
-       this.StartSurvey=function(){
-               if(exe("resetAnswer")){
-                   var ris = exeAndRead('getActualAnswer(X)');
+       };  
+       this.StartSurvey=function(session){
+               if(exe("resetAnswer",session.GetMyId())){
+                   var ris = exeAndRead('getActualAnswer(X)',session.GetMyId());
                    console.log("-------->",ris)
                    if(ris.length>0 && ris[0].X !== undefined){
-                      this.localAnswer=ris[0].X;
+                     session.localAnswer=ris[0].X;
                       return ris[0].X;
                    }else{                       
                      return false;
@@ -32,16 +31,16 @@ class PorlogEngine{
                     return false;
                }
        };
-       this.SetResp=function(resp){
+       this.SetResp=function(resp,session){
            
-           const ris =exe("setResponse("+resp+")");
+           const ris =exe("setResponse("+resp+")",session.GetMyId());
             if(ris){
-                var x =exeAndRead('nextAnswer(X)');
+                var x =exeAndRead('nextAnswer(X)',session.GetMyId());
                 if(x.length>0 && x[0].X>0){        
-                    var ans = exeAndRead('getActualAnswer(X)');
+                    var ans = exeAndRead('getActualAnswer(X)',session.GetMyId());
                     if(ans.length>0 && ans[0].X !== undefined){
-                       this.localAnswer=ans[0].X;
-                       return this.localAnswer;
+                        session.localAnswer=ans[0].X;
+                       return session.localAnswer;
                     }else{     
                         console.log("Error to handle?");                  
                          return false; //errore ?!?!
@@ -53,8 +52,8 @@ class PorlogEngine{
                 return null;
             }
         };
-        this.GetResult=function(){
-           var ris =exeAndRead('getResult(X)');
+        this.GetResult=function(session){
+           var ris =exeAndRead('getResult(X)',session.GetMyId());
            //console.log("----result----------->", ris);
            if(ris.length<3){
                 var filtered = ris.filter(function(value, index, arr){
@@ -69,8 +68,8 @@ class PorlogEngine{
            }
           
         };
-        this.GetLocalAnswer = function(){
-            return this.localAnswer;
+        this.GetLocalAnswer = function(session){
+            return session.localAnswer;
         }
     }
 

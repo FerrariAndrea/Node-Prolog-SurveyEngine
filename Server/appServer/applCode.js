@@ -7,10 +7,11 @@ const logger = require('morgan');	//see 10.1 of nodeExpressWeb.pdf;
 const favicon = require('express-favicon');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const index = require('./routes/index');
 const PrologTestUnit = require('./prolog/test');
 const PorlogEngine = require('./prolog/prologEngine');
+const Session = require('./prolog/session');
 const resolveModuleName = require('./prolog/pl/nameResolver');
+
 var url = require('url');
 
 var app = express();
@@ -65,10 +66,12 @@ app.get('/', function (req, res) {
 app.get('/init', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var typeInit = url_parts.query.typeInit;
-	console.log("Init of "+typeInit);
+	Session.Clean();
+	var s =Session.Create();
+	console.log("Init of "+typeInit + ", as session: user"+s.GetMyId());
 	try{
-		PorlogEngine.Istance.Init(resolveModuleName(typeInit));
-		res.send('<p style="color: green;">Init of '+typeInit+' success</p>')
+		PorlogEngine.Istance.Init(resolveModuleName(typeInit),s);
+		res.send('<p style="color: green;">Init of '+typeInit+' success</p><input type="hidden" id="UserId" name="UserId" value="'+s.GetMyId()+'">')
 	}catch(err){
 		console.log("Init error: "+ err);
 		res.send('<p style="color: red;">Error on init of '+typeInit+'</p>')
@@ -76,9 +79,11 @@ app.get('/init', function (req, res) {
 	
 });
 app.get('/startSurvey', function (req, res) {
-	console.log("StartSurvey");
+	var url_parts = url.parse(req.url, true);
+	var s = Session.Get(url_parts.query.MyId);
+	console.log("StartSurvey [session: user"+s.GetMyId()+"]");
 	try{
-		var ans =PorlogEngine.Istance.StartSurvey();
+		var ans =PorlogEngine.Istance.StartSurvey(s);
 		if(ans!==false){
 				res.send('<p style="color: white;">'+ans+'</p>')
 		}else{
@@ -93,25 +98,26 @@ app.get('/startSurvey', function (req, res) {
 app.get('/setResp', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var respToAns = url_parts.query.respToAns;
-	console.log("SetResp");
+	var s = Session.Get( url_parts.query.MyId);
+	console.log("SetResp [session: user"+s.GetMyId()+"]");
 	try{
-		var ans =PorlogEngine.Istance.SetResp(respToAns);
+		var ans =PorlogEngine.Istance.SetResp(respToAns,s);
 		if(ans!==null){
 			if(ans!==false){
 				res.send('<p style="color: white;">'+ans+'</p>')
 			}else{
-				var result=PorlogEngine.Istance.GetResult();
+				var result=PorlogEngine.Istance.GetResult(s);
 				console.log("------>", result)
 				res.send('<p style="color: green;">Survey finished with result: '+result[result.length-1].X+'</p>')
 			}
 		}else{
-			var oldAns =PorlogEngine.Istance.GetLocalAnswer();
+			var oldAns =PorlogEngine.Istance.GetLocalAnswer(s);
 			//QUI SI POTRBBE FARE DEL REASONING per capire le risposte possibili da dare
 			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 		}
 	}catch(err){
 		console.log("SetResp error: "+ err);
-		res.send('<p style="color: red;">Error on setResp</p>')
+		res.send('<p style="color: red;">Error on setResp</p><br><p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 	}	
 });
 /*
@@ -135,14 +141,6 @@ app.get('/test3', function (req, res) {
 	var ris = PrologTestUnit.test3();
 	console.log("test3--->"+ris);
 	if(ris){
-		res.send("Passed")
-	}else{
-		res.send("NOT Passed")
-	}
-});
-app.get('/testx', function (req, res) {
-	PorlogEngine.Istance.Init('LukyNumber.pl');
-	if(PorlogEngine.Istance.test()){
 		res.send("Passed")
 	}else{
 		res.send("NOT Passed")

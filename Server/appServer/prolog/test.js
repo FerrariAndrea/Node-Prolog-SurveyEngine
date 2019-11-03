@@ -36,9 +36,11 @@ module.exports ={
         return(ris); 
     },
     test5 : function(){
-        swipl.call('assert(user1:thisIsATest(45))');        
+        swipl.call('assert(user1:thisIsATest(45))');  
+        swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');      
         var x= swipl.call('user1:thisIsATest(X)').X;
-        swipl.call('retract(user1:_)'); 
+        console.log("----->",x);
+        swipl.call('clear_module(user1)'); 
         const query = new swipl.Query('user1:thisIsATest(X)');//<---------- THIS IS OK
         let ret = null;
         while (ret = query.next()) {
