@@ -1001,3 +1001,12 @@
 ::1 - GET /setResp?MyId=2&respToAns=si HTTP/1.1 200 43 - 3.388 ms
 ::1 - GET /setResp?MyId=2&respToAns=4 HTTP/1.1 200 56 - 8.158 ms
 ::1 - GET /test1 HTTP/1.1 200 57 - 50.947 ms
+::1 - GET / HTTP/1.1 200 1547 - 14.296 ms
+::1 - GET /myAjax.js HTTP/1.1 200 2213 - 4.505 ms
+::1 - GET /style.css HTTP/1.1 200 571 - 6.244 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 0.709 ms
+::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 112 - 20.604 ms
+::1 - GET /startSurvey?MyId=1 HTTP/1.1 304 - - 9.014 ms
+::1 - GET /setResp?MyId=1&respToAns=no HTTP/1.1 200 70 - 19.347 ms
+::1 - GET /setResp?MyId=1&respToAns=no HTTP/1.1 200 48 - 17.629 ms
+::1 - GET /setResp?MyId=1&respToAns=no HTTP/1.1 200 78 - 20.446 ms
