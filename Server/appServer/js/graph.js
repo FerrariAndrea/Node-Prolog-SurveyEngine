@@ -29,6 +29,7 @@ function drawGraph(list_nodes){
                map["n"+element.id]=graph.newNode({label: element.ans, info: "azione: "+ JSON.stringify(element.act)});
            }
        });
+       map["END NODE"]=graph.newNode({label: "END NODE", info: "END NODE"});
        var indexE =0;
        list_nodes.allans.forEach(element => {
              indexE++;
@@ -40,6 +41,8 @@ function drawGraph(list_nodes){
                    graph.newEdge(map["n"+element.id], map["n"+element.dest]);
                }
               
+           }else if(element.dest===-1){
+            graph.newEdge(map["n"+element.id], map["END NODE"]);
            }else{
             console.log("Ignored->",element)
            }
