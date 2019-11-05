@@ -1,6 +1,29 @@
 // REMEMBER------------>the word "MODULE_SESSION:" is reserved
 const {readX,load,clear,exeAndRead,exe} = require('./prolog');
 const swipl = require('swipl');
+
+// function decript(element){
+//     if(element!==undefined){
+//         if(element.name!==undefined && element.args!==undefined){
+//             return  element.name + " "+decript(element.args);
+//          }else{
+//              console.log("undef-->",element)
+//              return  element;
+//          }
+//     }else{
+//         return "";
+//     }
+ 
+// }
+function clearClause(element,sessionID){
+    if(element!==undefined){
+       return  element.replace('user'+sessionID+':','');
+    }else{
+        return "";
+    }
+ 
+}
+
 class PorlogEngine{
     constructor(){
        swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');
@@ -83,12 +106,13 @@ class PorlogEngine{
                 node['ans'] = ret.B;
                 node['resp'] = ret.C;
                 node['dest'] = ret.D;
-                if(ret.X!==undefined && ret.X.args!==undefined && ret.X.args[1]!==undefined && ret.X.args[1].args!==undefined){
-                    node['act'] =ret.X.args[1].args;
-                }else{
-                    node['act'] =ret.X;
-                }
-                console.log(ret.X)
+                
+                // if(ret.X!==undefined && ret.X.args!==undefined && ret.X.args[1]!==undefined && ret.X.args[1].args!==undefined){
+                //     node['act'] =ret.X.args[1].args;
+                // }else{
+                node['act']= clearClause(ret.X,session.GetMyId());
+                //}
+                //console.log(ret.X)
                 list.allans.push(node);
             } 
             query.close();

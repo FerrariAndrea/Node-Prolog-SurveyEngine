@@ -23,4 +23,4 @@ MODULE_SESSION:answer(7,'Scrivi il tuo nome:',Nome,8):-(atom_length(Nome,X),MODU
 MODULE_SESSION:answer(7,'Scrivi il tuo nome:',Nome,-1):-(atom_length(Nome,X),MODULE_SESSION:addToluckyNumber(X),X<6)
 MODULE_SESSION:answer(8,'Scrivi il tuo cognome:',Cognome,-1):-(atom_length(Cognome,X),MODULE_SESSION:addToluckyNumber(-X))
 %------------------------ RESULT OF SURVEY
-MODULE_SESSION:getResult(Ris):-(MODULE_SESSION:luckyNumber(X),Ris=('Il tuo numero fortunato è'+X))
+MODULE_SESSION:getResult(Ris):-(MODULE_SESSION:luckyNumber(X),atom_concat('Il tuo numero fortunato è ',X,Ris))
