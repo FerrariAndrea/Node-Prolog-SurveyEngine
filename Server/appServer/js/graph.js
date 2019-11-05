@@ -25,25 +25,27 @@ function drawGraph(list_nodes){
        var map={};
        list_nodes.allans.forEach(element => {
            //{id : ret.A,ans: ret.B,resp : ret.C,dest :ret.D,act: ret.X}
-           if(element.id!==undefined){
-               map["n"+element.id]=graph.newNode({id: "n"+element.id,label: element.ans, info: "azione: "+ JSON.stringify(element.act)});
+           if(element.id!==undefined &&  map["n"+element.id]===undefined){
+               map["n"+element.id]=graph.newNode({label: element.ans, info: "azione: "+ JSON.stringify(element.act)});
            }
        });
-       var indexE =1;
+       var indexE =0;
        list_nodes.allans.forEach(element => {
-        
+             indexE++;
+           
            if(element.dest>0 && map["n"+element.id]!==undefined && map["n"+element.dest]!==undefined){
                if(element.resp!==null){
-                   graph.newEdge(map["n"+element.id], map["n"+element.dest],{id:"e"+indexE,label: element.resp });
+                   graph.newEdge(map["n"+element.id], map["n"+element.dest],{label: element.resp });
                }else{                   
-                   graph.newEdge(map["n"+element.id], map["n"+element.dest],{id:"e"+indexE});
+                   graph.newEdge(map["n"+element.id], map["n"+element.dest]);
                }
-               indexE++;
+              
            }else{
-            console.log(element)
+            console.log("Ignored->",element)
            }
         });
-       
+        console.log("Count.:", indexE)
+       console.log(graph)
        $('#my_canvas').springy({ graph: graph });
 
        jQuery('#my_canvas').springy({ graph: graph, nodeSelected: function(node) {
