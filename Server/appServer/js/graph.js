@@ -17,19 +17,31 @@ function drawGraph(list_nodes){
     if(list_nodes===undefined || list_nodes.error!==undefined && list_nodes.error){
         document.getElementById("graph").innerHTML="Errore generico, nella recezione dei dati per il grafico.";
     }else{
-         console.log(list_nodes);
+        //console.log(list_nodes);
         document.getElementById("my_canvas").height = window.innerHeight; 
         document.getElementById("my_canvas").width =  window.innerWidth; 
         document.getElementById("graph").style.display = "block"; 
        var graph = new Springy.Graph();
-       var map={};
+       var map=[];
        list_nodes.allans.forEach(element => {
            //{id : ret.A,ans: ret.B,resp : ret.C,dest :ret.D,act: ret.X}
-           if(element.id!==undefined &&  map["n"+element.id]===undefined){
-               map["n"+element.id]=graph.newNode({label: element.ans, info: "azione: "+ JSON.stringify(element.act)});
+           if(element.id!==undefined ){
+               if( map["n"+element.id]===undefined){
+                   var info = {};
+                   info.list=[];
+                   info.list.push( {risposta: element.resp ,azione:  JSON.stringify(element.act)});
+                  map["n"+element.id]={label: element.ans, info: info};
+               }else{
+                   map["n"+element.id].info.list.push({risposta: element.resp ,azione:  JSON.stringify(element.act)});
+               }
+              
            }
        });
-       map["END NODE"]=graph.newNode({label: "END NODE", info: "END NODE"});
+       map["END NODE"]={label: "END NODE", info: "END NODE"};
+       JSON.parse(map).forEach(element => {
+           console.log(element)
+            graph.newNode(element);
+       });
        var indexE =0;
        list_nodes.allans.forEach(element => {
              indexE++;
@@ -52,7 +64,7 @@ function drawGraph(list_nodes){
        $('#my_canvas').springy({ graph: graph });
 
        jQuery('#my_canvas').springy({ graph: graph, nodeSelected: function(node) {
-           document.getElementById("nodeSelectedInfo").innerHTML = node.data.info;
+           document.getElementById("nodeSelectedInfo").innerHTML =JSON.stringify(node.data.info.list);
         } });
     //    var layout = new Springy.Layout.ForceDirected(
     //     graph,
