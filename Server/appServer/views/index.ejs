@@ -4,8 +4,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>CompilationHelper</title>	
+	<link rel="stylesheet" type="text/css" href="style.css">	
 	<script src="myAjax.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="graph.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="springy.js"></script>
+	<script src="springyui.js"></script>
+	
 </head>
 
 <body style="background-color:#474554">
@@ -26,7 +31,16 @@
 			<div id="respInit">
 
 			</div>
+			<div id="drawButton" style="display: none">
+				<a onclick="drawGraphFromServer();" class="myButton">Disegna il grafo delle domande</a>
+			</div>			
 		</center>
+	</div>
+	<div id="graph" style="display: none">
+		<center>
+		<label style="color: white" id="nodeSelectedInfo"></label>
+		</center>
+		<canvas id="my_canvas" width="500" height="500" />
 	</div>
 	<div id="workDiv"   style="height: 60vmin;background-color:rgb(44, 38, 85);">
 

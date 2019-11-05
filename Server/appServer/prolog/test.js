@@ -47,6 +47,16 @@ module.exports ={
             console.log(`Variable X value is: ${ret.X}`);
         } 
         return"X=" +x + " after: "+ ret;
+    },
+    test6 : function(){// thx to rla, who fix the isuess, now this work
+        swipl.call('assert(thisIsATest(45))');
+        const query = new swipl.Query('thisIsATest(5)');
+        var ret = null;
+        while (ret = query.next()) {
+            console.log(`Variable X value is: ${ret.X}`);
+        }        
+        query .close();
+        return(ret); 
     }
 
 }

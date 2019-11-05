@@ -31,10 +31,10 @@ module.exports ={
             ret = query.next();
             ris.push(ret);
         } 
-        if(ris.length>1 || ris[0]!==false){
-            console.log("[***] Query readX chiusa!!!!!!!")
+        //if(ris.length>1 || ris[0]!==false){
+       //     console.log("[***] Query readX chiusa!!!!!!!")
             query.close();
-        }
+       // }
         return(ris); 
     }, 
     exeAndRead: function(roule,session){
@@ -47,10 +47,10 @@ module.exports ={
             ris.push(ret);
         } 
         //console.log("*********----------->", ris);
-        if(ris.length>1 || ris[0]!==false){
-            console.log("[***] Query exe chiusa!!!!!!!")
+       // if(ris.length>1 || ris[0]!==false){
+        //    console.log("[***] Query exe chiusa!!!!!!!")
             query.close();
-        }
+       // }
         return(ris); 
     },
     exe: function(roule,session){

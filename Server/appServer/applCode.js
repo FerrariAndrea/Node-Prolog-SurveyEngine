@@ -37,18 +37,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'jsCode'))); //(***)
 
-//DEFINE THE ROUTES ;
-//app.use('/', index);		 
-
 //Creates a default route for /pi;
 app.get('/info', function (req, res) {
 	res.send('This is the CompilationHelper!')
 });
 
 //js
+app.get('/springyui.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/springyui.js')); 
+});
+app.get('/springy.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/springy.js')); 
+});
 app.get('/myAjax.js',function(req,res){
     res.sendFile(path.join(__dirname, '/js/myAjax.js')); 
 });
+
+app.get('/graph.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/graph.js')); 
+});
+
 
 //css
 app.get('/style.css',function(req,res){
@@ -120,6 +128,17 @@ app.get('/setResp', function (req, res) {
 		res.send('<p style="color: red;">Error on setResp</p><br><p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 	}	
 });
+app.get('/getIA', function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var s = Session.Get(url_parts.query.MyId);
+	console.log("getIA [session: user"+s.GetMyId()+"]");
+	try{
+		res.status(200).json(PorlogEngine.Istance.GetAllAnswer(s));	
+	}catch(err){
+		console.log("SetResp error: "+ err);
+		res.status(200).json({error:true});
+	}	
+});
 /*
 * ====================== TEST ================
 */
@@ -151,6 +170,9 @@ app.get('/test4', function (req, res) {
 });
 app.get('/test5', function (req, res) {
 	res.send(PrologTestUnit.test5());
+});
+app.get('/test6', function (req, res) {
+	res.send(PrologTestUnit.test6());
 });
 /*
 * ====================== REPRESENTATION ================

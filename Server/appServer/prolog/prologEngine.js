@@ -71,6 +71,29 @@ class PorlogEngine{
         this.GetLocalAnswer = function(session){
             return session.localAnswer;
         }
+        this.GetAllAnswer = function(session){
+            var query=new swipl.Query('user'+session.GetMyId()+':getAllAnswer(A,B,C,D,X)'); 
+            var ret= true;
+            var list= {};  
+            list.allans=[];
+            while (ret!==false) {
+                ret = query.next();
+                var node ={};
+                node['id'] = ret.A;
+                node['ans'] = ret.B;
+                node['resp'] = ret.C;
+                node['dest'] = ret.D;
+                if(ret.X!==undefined && ret.X.args!==undefined && ret.X.args[1]!==undefined && ret.X.args[1].args!==undefined){
+                    node['act'] =ret.X.args[1].args;
+                }else{
+                    node['act'] =ret.X;
+                }
+                console.log(ret.X)
+                list.allans.push(node);
+            } 
+            query.close();
+            return(list); 
+        }
     }
 
   

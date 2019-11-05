@@ -5,4 +5,5 @@ MODULE_SESSION:resetAnswer:-(MODULE_SESSION:changeAnswere(1))
 MODULE_SESSION:getActualAnswer(Ans):-(MODULE_SESSION:nextAnswer(X),clause(MODULE_SESSION:answer(X,Ans,_,_),_))
 MODULE_SESSION:setResponse(X):-(MODULE_SESSION:nextAnswer(Z),MODULE_SESSION:answer(Z,_,X,Y),MODULE_SESSION:changeAnswere(Y))
 MODULE_SESSION:getResult('no result as default')
+MODULE_SESSION:getAllAnswer(A,B,C,D,X):-(clause(MODULE_SESSION:answer(A,B,C,D),X))
 %###################################

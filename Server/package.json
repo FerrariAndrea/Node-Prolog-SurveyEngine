@@ -21,8 +21,8 @@
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
     "morgan": "^1.9.1",
-    "node-gyp": "^6.0.0",
+    "node-gyp": "^6.0.1",
     "rebuild": "^0.1.2",
-    "swipl": "^1.0.4"
+    "swipl": "^1.0.5"
   }
 }

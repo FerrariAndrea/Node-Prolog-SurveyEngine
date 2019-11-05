@@ -14,16 +14,23 @@ function init() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("respInit").innerHTML = this.responseText;
-             document.getElementById("StartSurveyButton").disabled =!this.responseText.toString().includes("success");              
+            var success =this.responseText.toString().includes("success");
+             document.getElementById("StartSurveyButton").disabled =!success;              
              document.getElementById("StartSurveyButton").innerHTML="Start survey";
              document.getElementById("SetRespButton").disabled =true;  
              document.getElementById("resp").innerHTML = "";
-             document.getElementById("myAns").value = "";             
+             document.getElementById("myAns").value = "";       
+             if(success){
+                document.getElementById("drawButton").style.display = "block";                    
+             } else{                 
+                document.getElementById("drawButton").style.display = "none";    
+                document.getElementById("graph").style.display = "none";   
+             }    
          }
     };
     var e = document.getElementById("typeInit");
-    var strUser = e.options[e.selectedIndex].value;
-    xhttp.open("GET", "/init?typeInit="+strUser, true);
+    var typeInit = e.options[e.selectedIndex].value;
+    xhttp.open("GET", "/init?typeInit="+typeInit, true);
     xhttp.send();
 }
 function startSurvey() {
