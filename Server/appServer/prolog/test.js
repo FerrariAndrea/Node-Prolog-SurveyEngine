@@ -58,5 +58,4 @@ module.exports ={
         query .close();
         return(ret); 
     }
-
 }

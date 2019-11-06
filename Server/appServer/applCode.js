@@ -62,11 +62,16 @@ app.get('/graph.js',function(req,res){
 app.get('/style.css',function(req,res){
     res.sendFile(path.join(__dirname, '/css/style.css')); 
 });
-
+//pages
 app.get('/', function (req, res) {
 	res.render("index");
 });
-
+app.get('/admin', function (req, res) {
+	res.render("admin");
+});
+app.get('/create', function (req, res) {
+	res.render("create");
+});
 
 /*
 * ====================== CMD ================
@@ -103,6 +108,7 @@ app.get('/startSurvey', function (req, res) {
 		res.send('<p style="color: red;">Error on startSurvey</p>')
 	}	
 });
+
 app.get('/setResp', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var respToAns = url_parts.query.respToAns;

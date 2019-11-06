@@ -10,10 +10,15 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="springy.js"></script>
 	<script src="springyui.js"></script>
-	
+
 </head>
 
 <body style="background-color:#474554">
+	<div class="topnav">
+		<a class="active" href="/">Compile Survey</a>
+		<a href="/create">Create Survey</a>
+		<a href="/admin">About</a>
+	</div>
 	<div id="headerDiv" style="height: 10vmin;background-color:#B1BDC5;">
 			<center>
 				<p style="color: rgb(0, 0, 0) ; font-size: 4vmin; padding-top: 2vmin;">CompilationHelper</p>
@@ -33,7 +38,8 @@
 			</div>
 			<div id="drawButton" style="display: none">
 				<a onclick="drawGraphFromServer();" class="myButton">Disegna il grafo delle domande</a>
-			</div>			
+			</div>		
+			<br>	
 		</center>
 	</div>
 	<div id="graph" style="display: none;color: white;">
@@ -42,7 +48,8 @@
 		</center>
 		<canvas id="my_canvas" width="500" height="500" />
 	</div>
-	<div id="workDiv"   style="height: 60vmin;background-color:rgb(44, 38, 85);">
+	<br>
+	<div id="workDiv"   style="background-color:rgb(44, 38, 85);">
 
 		<center>
 			<br>
@@ -55,17 +62,8 @@
 			<div id="answ"  >
 				<label>Your answer:</label><input type="text" id="myAns"><button disabled id="SetRespButton"  onclick="setResp();" class="myButton">Reply</button>
 			</div>
+			<br>
 		</center>
-	</div>
-	<br>
-	<div id="testDiv"  style="height: 15vmin;background-color:#B1BDC5;">
-			<center>
-				<br>
-				<label onclick="loadTest();" class="myButton">TEST</label>
-				<div id="testResp">
-	
-				</div>
-			</center>
 	</div>
 
 </body>
