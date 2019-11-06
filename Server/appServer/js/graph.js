@@ -66,13 +66,19 @@ function drawGraph(list_nodes){
 
        jQuery('#my_canvas').springy({ graph: graph, nodeSelected: function(node) {
            if(node.data.info=== "END NODE"){
-                document.getElementById("nodeSelectedInfo").innerHTML ="END NODE";
+                document.getElementById("nodeSelectedInfo").innerHTML ='<div style="text-align: left;"><p>END NODE</p></div>';
            }else{
-            var _html =  "<ul>";
+            var _html =  '<div style="text-align: left;"><ul>';
                 node.data.info.list.forEach(element => {
-                    _html+="<li>"+JSON.stringify(element)+"</li>";
+                    _html+="<li>";
+                    if(element.risposta!==null){
+                        _html+="Input: "+element.risposta+"<ul><li>Azione: "+element.azione+ "</li></ul>";
+                    }else{
+                        _html+="Input: X<ul><li>Azione: "+element.azione+ "</li></ul>";
+                    }
+                    _html+="</li>"
                 });
-                _html+= "</ul>";
+                _html+= "</ul></dv>";
              document.getElementById("nodeSelectedInfo").innerHTML =_html;
            }
            

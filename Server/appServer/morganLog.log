@@ -2358,3 +2358,11 @@
 ::1 - GET /graph.js HTTP/1.1 200 3533 - 7.293 ms
 ::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 113 - 3.801 ms
 ::1 - GET /getIA?MyId=19 HTTP/1.1 200 1598 - 2.839 ms
+::1 - GET / HTTP/1.1 200 2083 - 78.043 ms
+::1 - GET /myAjax.js HTTP/1.1 200 2590 - 28.095 ms
+::1 - GET /graph.js HTTP/1.1 200 3533 - 33.357 ms
+::1 - GET /springy.js HTTP/1.1 200 21319 - 21.303 ms
+::1 - GET /springyui.js HTTP/1.1 200 12933 - 22.422 ms
+::1 - GET /style.css HTTP/1.1 200 571 - 45.459 ms
+::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 112 - 35.611 ms
+::1 - GET /getIA?MyId=1 HTTP/1.1 200 1592 - 7.602 ms
