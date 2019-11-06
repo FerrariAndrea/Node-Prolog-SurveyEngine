@@ -22,7 +22,7 @@ function drawGraph(list_nodes){
         document.getElementById("my_canvas").width =  window.innerWidth; 
         document.getElementById("graph").style.display = "block"; 
        var graph = new Springy.Graph();
-       var map=[];
+       var map=new Array();
        list_nodes.allans.forEach(element => {
            //{id : ret.A,ans: ret.B,resp : ret.C,dest :ret.D,act: ret.X}
            if(element.id!==undefined ){
@@ -38,23 +38,24 @@ function drawGraph(list_nodes){
            }
        });
        map["END NODE"]={label: "END NODE", info: "END NODE"};
-       JSON.parse(map).forEach(element => {
-           console.log(element)
-            graph.newNode(element);
+         var nodeList= new Array();
+       Object.keys(map).forEach(key => {
+           console.log(map[key].label)
+           nodeList[key]=graph.newNode(map[key]);
        });
        var indexE =0;
        list_nodes.allans.forEach(element => {
              indexE++;
            
-           if(element.dest>0 && map["n"+element.id]!==undefined && map["n"+element.dest]!==undefined){
+           if(element.dest>0 && nodeList["n"+element.id]!==undefined && nodeList["n"+element.dest]!==undefined){
                if(element.resp!==null){
-                   graph.newEdge(map["n"+element.id], map["n"+element.dest],{label: element.resp });
+                   graph.newEdge(nodeList["n"+element.id], nodeList["n"+element.dest],{label: element.resp });
                }else{                   
-                   graph.newEdge(map["n"+element.id], map["n"+element.dest]);
+                   graph.newEdge(nodeList["n"+element.id], nodeList["n"+element.dest]);
                }
               
            }else if(element.dest===-1){
-            graph.newEdge(map["n"+element.id], map["END NODE"]);
+                graph.newEdge(nodeList["n"+element.id], nodeList["END NODE"]);
            }else{
             console.log("Ignored->",element)
            }
@@ -64,7 +65,17 @@ function drawGraph(list_nodes){
        $('#my_canvas').springy({ graph: graph });
 
        jQuery('#my_canvas').springy({ graph: graph, nodeSelected: function(node) {
-           document.getElementById("nodeSelectedInfo").innerHTML =JSON.stringify(node.data.info.list);
+           if(node.data.info=== "END NODE"){
+                document.getElementById("nodeSelectedInfo").innerHTML ="END NODE";
+           }else{
+            var _html =  "<ul>";
+                node.data.info.list.forEach(element => {
+                    _html+="<li>"+JSON.stringify(element)+"</li>";
+                });
+                _html+= "</ul>";
+             document.getElementById("nodeSelectedInfo").innerHTML =_html;
+           }
+           
         } });
     //    var layout = new Springy.Layout.ForceDirected(
     //     graph,
