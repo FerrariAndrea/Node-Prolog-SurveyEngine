@@ -5,7 +5,13 @@ function drawGraphFromServer(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            drawGraph(JSON.parse(this.responseText));
+            var json = JSON.parse(this.responseText);
+            if(json.error===undefined || json.error===false ){                
+                 drawGraph(json);
+            }else{
+                document.getElementById("graph").innerHTML="Errore generico, nella recezione dei dati per il grafico, potrebbe essere scaduta la sessione.";
+                document.getElementById("graph").style.display = "block"; 
+            }
          }
     };
     xhttp.open("GET", "/getIA?MyId="+id, true);

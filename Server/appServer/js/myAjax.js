@@ -57,3 +57,14 @@ function setResp() {
     xhttp.open("GET", "/setResp?MyId="+id+"&respToAns="+ document.getElementById("myAns").value, true);
     xhttp.send();
 }
+
+function dellSessions(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("dellSessionResp").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/dellSessions", true);
+    xhttp.send();
+}

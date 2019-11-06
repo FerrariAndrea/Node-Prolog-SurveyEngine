@@ -29,7 +29,7 @@ class PorlogEngine{
        swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');
       
        this.Init=function (module_name,session){
-            clear();
+            clear(session.GetMyId());
             if(module_name!==undefined){
                 if(Array.isArray(module_name)){
                     module_name.forEach(element => {
@@ -93,6 +93,9 @@ class PorlogEngine{
         };
         this.GetLocalAnswer = function(session){
             return session.localAnswer;
+        }
+        this.DellSession= function(session){
+            clear(session.GetMyId());
         }
         this.GetAllAnswer = function(session){
             var query=new swipl.Query('user'+session.GetMyId()+':getAllAnswer(A,B,C,D,X)'); 

@@ -35,10 +35,19 @@ Session.Get=function(id){
     return ris;
 };
 
-Session.Clean= function(){
+Session.Clean= function(callback){
     Session.allSession =Session.allSession.filter(function(element){
+        if(element.isInactive()){
+            callback(element);
+        }
         return !element.isInactive();
     });
+};
+Session.DellAll= function(callback){
+    Session.allSession.forEach(function(element){
+        callback(element);
+    });
+    Session.allSession=new Array();
 };
 
 Session.Create=function(){

@@ -79,7 +79,7 @@ app.get('/create', function (req, res) {
 app.get('/init', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var typeInit = url_parts.query.typeInit;
-	Session.Clean();
+	Session.Clean(PorlogEngine.Istance.DellSession);
 	var s =Session.Create();
 	console.log("Init of "+typeInit + ", as session: user"+s.GetMyId());
 	try{
@@ -94,26 +94,31 @@ app.get('/init', function (req, res) {
 app.get('/startSurvey', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var s = Session.Get(url_parts.query.MyId);
-	console.log("StartSurvey [session: user"+s.GetMyId()+"]");
-	try{
-		var ans =PorlogEngine.Istance.StartSurvey(s);
-		if(ans!==false){
-				res.send('<p style="color: white;">'+ans+'</p>')
-		}else{
-			console.log("StartSurvey error: PorlogEngine.Istance.StartSurvey()==false");
+	if(s!==null){
+		console.log("StartSurvey [session: user"+s.GetMyId()+"]");
+		try{
+			var ans =PorlogEngine.Istance.StartSurvey(s);
+			if(ans!==false){
+					res.send('<p style="color: white;">'+ans+'</p>')
+			}else{
+				console.log("StartSurvey error: PorlogEngine.Istance.StartSurvey()==false");
+				res.send('<p style="color: red;">Error on startSurvey</p>')
+			}
+		}catch(err){
+			console.log("StartSurvey error: "+ err);
 			res.send('<p style="color: red;">Error on startSurvey</p>')
-		}
-	}catch(err){
-		console.log("StartSurvey error: "+ err);
-		res.send('<p style="color: red;">Error on startSurvey</p>')
-	}	
+		}	
+	}else{
+		res.send('<p style="color: red;">Sessione scaduta.</p>')		
+	}
 });
 
 app.get('/setResp', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var respToAns = url_parts.query.respToAns;
 	var s = Session.Get( url_parts.query.MyId);
-	console.log("SetResp [session: user"+s.GetMyId()+"]");
+	if(s!==null){
+		console.log("SetResp [session: user"+s.GetMyId()+"]");
 	try{
 		var ans =PorlogEngine.Istance.SetResp(respToAns,s);
 		if(ans!==null){
@@ -133,16 +138,36 @@ app.get('/setResp', function (req, res) {
 		console.log("SetResp error: "+ err);
 		res.send('<p style="color: red;">Error on setResp</p><br><p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 	}	
+	}else{
+		res.send('<p style="color: red;">Sessione scaduta.</p>')		
+	}
+	
 });
 app.get('/getIA', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var s = Session.Get(url_parts.query.MyId);
-	console.log("getIA [session: user"+s.GetMyId()+"]");
+	if(s!==null){
+		console.log("getIA [session: user"+s.GetMyId()+"]");
+		try{
+			res.status(200).json(PorlogEngine.Istance.GetAllAnswer(s));	
+		}catch(err){
+			console.log("SetResp error: "+ err);
+			res.status(200).json({error:true});
+		}	
+	}else{
+		res.status(200).json({error:true,sessioneScaduta: true});
+	}
+	
+});
+app.get('/dellSessions', function (req, res) {
+	console.log("dellSessions");
 	try{
-		res.status(200).json(PorlogEngine.Istance.GetAllAnswer(s));	
+		Session.DellAll(PorlogEngine.Istance.DellSession);
+		console.log("DellSessions done.");
+		res.send('<p style="color: green;">Tutte le sessioni sono state eliminate.</p>')
 	}catch(err){
-		console.log("SetResp error: "+ err);
-		res.status(200).json({error:true});
+		console.log("DellSessions error: "+ err);
+		res.send('<p style="color: red;">Errore: impossibile elimnare tutte le sessioni.</p>')
 	}	
 });
 /*
