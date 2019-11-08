@@ -49,14 +49,16 @@ app.get('/springyui.js',function(req,res){
 app.get('/springy.js',function(req,res){
     res.sendFile(path.join(__dirname, '/js/springy.js')); 
 });
-app.get('/myAjax.js',function(req,res){
-    res.sendFile(path.join(__dirname, '/js/myAjax.js')); 
+app.get('/requestAJAX.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/requestAJAX.js')); 
 });
 
 app.get('/graph.js',function(req,res){
     res.sendFile(path.join(__dirname, '/js/graph.js')); 
 });
-
+app.get('/creatingAJAX.js',function(req,res){
+    res.sendFile(path.join(__dirname, '/js/creatingAJAX.js')); 
+});
 
 //css
 app.get('/style.css',function(req,res){

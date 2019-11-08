@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<title>CompilationHelper</title>	
 	<link rel="stylesheet" type="text/css" href="style.css">	
-	<script src="myAjax.js"></script>
+	<script src="creatingAJAX.js"></script>
 	<script src="graph.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="springy.js"></script>
@@ -26,17 +26,41 @@
 	</div>
 	<div style="background-color:rgb(44, 38, 85);color: white">
 		<center>
-			<br><label>Creazione sondaggio</label>
-			
+			<br><label>Creazione sondaggio</label>						
 		</center>
 	</div>
-	<div id="graph" style="display: none;color: white;">
+
+	<div id="creatingDiv"   style="background-color:rgb(44, 38, 85);color: white;">
 		<center>
-		<label  id="nodeSelectedInfo"></label>
+			<br>
+			<button  onclick="reset();" class="myButton">Azzera tutto</button>	
+			<br><br>
+			<label>Domanda:</label><input type="text" id="newAns">	
+			<button  onclick="addAns();" class="myButton">Aggiungi la domanda</button>	
+			<br><br><br>
 		</center>
+	</div>
+	<br>
+	<div id="selectedDiv"  style="background-color:rgb(44, 38, 85);color: white;">
+			<center>
+				<br>
+				<label>Crea arco</label>
+				<br><br>
+				<label>Nodo sorgente: </label><label id="nodoSorgente"></label><br>
+				<label>Nodo destinazione: </label><label id="nodoDestinazione"></label>			
+				<br><br>
+				<button  onclick="addArc();" class="myButton">Aggiungi l'arco</button>	
+				<br><br><br>
+			</center>
+	</div>
+	<div id="graph" style="color: white;">
+		<label style="text-align: left;" id="nodeSelectedInfo"></label>
+		<button style="text-align: left;" onclick="dellNode();" class="myButton">Elimina nodo</button>
+		<button style="text-align: left;" onclick="setSorgente();" class="myButton">Imposta come sorgente</button>
+		<button style="text-align: left;" onclick="setDestinazione();" class="myButton">Imposta come destinazione</button>
 		<canvas id="my_canvas" width="500" height="500" />
 	</div>
-	
+
 
 </body>
 </html>
