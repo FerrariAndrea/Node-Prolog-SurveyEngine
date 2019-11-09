@@ -31,7 +31,9 @@ app.use(logger("short", { stream: accessLogStream }));
 app.use(favicon(path.join(__dirname,  'favicon.ico')));
 app.use(logger('dev'));				//shows commands, e.g. GET /pi 304 23.123 ms - -;
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+///app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 //app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -172,6 +174,11 @@ app.get('/dellSessions', function (req, res) {
 		res.send('<p style="color: red;">Errore: impossibile elimnare tutte le sessioni.</p>')
 	}	
 });
+app.post('/save', function (req, res) {
+	console.log("save");
+	console.log(req.body)
+	res.send('<p style="color: red;">ok</p>')
+});
 /*
 * ====================== TEST ================
 */
@@ -211,9 +218,9 @@ app.get('/test6', function (req, res) {
 * ====================== REPRESENTATION ================
 */
 app.use(function (req, res) {
-	console.info("SENDING THE ANSWER " + result + " json:" + req.accepts('josn'));
+	//console.info("SENDING THE ANSWER " + result + " json:" + req.accepts('josn'));
 	try {
-		console.log("answer> " + result);
+	//	console.log("answer> " + result);
 	    /*
 	   if (req.accepts('json')) {
 	       return res.send(result);		//give answer to curl / postman

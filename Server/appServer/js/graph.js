@@ -56,7 +56,11 @@ function initGraph(){
             _html+= "</ul></dv>";
            
         }
-        _html+= '<input type="hidden" id="selectedNodeID" value="'+node.id+'"></input>';
+        // if(node.data.label==="END NODE"){
+        //     _html+= '<input type="hidden" id="selectedNodeID" value="END NODE"></input>';
+        // }else{            
+          _html+= '<input type="hidden" id="selectedNodeID" value="'+node.id+'"></input>';
+        //}
         document.getElementById("nodeSelectedInfo").innerHTML =_html;
     } });
     document.getElementById("my_canvas").height = window.innerHeight; 
