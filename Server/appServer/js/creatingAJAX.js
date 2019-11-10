@@ -16,11 +16,20 @@ class Arc {
       this.comp = comp;
       this.source = source;
       this.getAnsProlog=function(){
-             var ans="MODULE_SESSION:answer("+this.source.id+","+this.source.data.info+","+this.risp+","+ this.dest.id+")";
+          if(dest.data.label==="END NODE"){
+            var ans="MODULE_SESSION:answer("+this.source.id+","+this.source.data.info+","+this.risp+",-1)";
             if(this.comp!==undefined && this.comp.length>0){
                 ans+=":-"+this.comp;
             }
             return ans;
+          }else{
+            var ans="MODULE_SESSION:answer("+this.source.id+","+this.source.data.info+","+this.risp+","+ this.dest.id+")";
+            if(this.comp!==undefined && this.comp.length>0){
+                ans+=":-"+this.comp;
+            }
+            return ans;
+          }
+             
       };
 
     }
@@ -89,29 +98,34 @@ function dellNode(){
 
     if(elementSelected!==null && elementSelected!==undefined  ){
         if(elementSelected.value!=endnodeID){
-            const id =elementSelected.value;
-            const endes =graph.edges;
-            const nodes =graph.nodeSet;
-            var countEdgesDel =0;
-            var countNodesDel =0;
-            for (i in endes)
-            {
-                if(endes[i].target.id==id || endes[i].source.id==id ){
-                    graph.removeEdge(endes[i]);
-                    myArcs= myArcs.fill(function(el){return !el.is(endes[i].id);});
-                    countEdgesDel++;
+            if(elementSelected.value!="1"){
+                const id =elementSelected.value;
+                const endes =graph.edges;
+                const nodes =graph.nodeSet;
+                var countEdgesDel =0;
+                var countNodesDel =0;
+                for (i in endes)
+                {
+                    if(endes[i].target.id==id || endes[i].source.id==id ){
+                        graph.removeEdge(endes[i]);
+                        myArcs= myArcs.fill(function(el){return !el.is(endes[i].id);});
+                        countEdgesDel++;
+                    }
                 }
-            }
-            for (i in nodes)
-            {
-                //console.log(nodes[i].id+"->"+id,nodes[i].id==id)
-                if(nodes[i].id==id){   
-                     graph.removeNode(nodes[i]);
-                     countNodesDel++;
+                for (i in nodes)
+                {
+                    //console.log(nodes[i].id+"->"+id,nodes[i].id==id)
+                    if(nodes[i].id==id){   
+                         graph.removeNode(nodes[i]);
+                         countNodesDel++;
+                    }
                 }
+                myNodes=myNodes.filter(function(el){return !el.is(id);});
+                alert("Eliminati "+countEdgesDel + " archi e "+countNodesDel+" nodi.");
+            }else{
+                alert("Non puoi eliminare il nodo HEAD");
             }
-            myNodes=myNodes.filter(function(el){return !el.is(id);});
-            alert("Eliminati "+countEdgesDel + " archi e "+countNodesDel+" nodi.");
+          
         }else{
             alert("Non puoi eliminare il nodo END NODE");
         }
@@ -188,19 +202,31 @@ function save(){
     if(document.getElementById("name").value!==""){
         var xhttp = new XMLHttpRequest();
         var url = 'save';        
-        var params = 'data={';
+        var params = '';
         var index = 0;
         xhttp.open('POST', url, true);     
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       
-        params+="name:"+ document.getElementById("name").value;
+        params+="name="+ document.getElementById("name").value;
         myArcs.forEach(arc => {
-            params+=", id"+index +":"+ arc.getAnsProlog();             
+            params+="&id"+index +"="+ arc.getAnsProlog();   
+            index++;          
         });
-        params+="}";
+        if(document.getElementById("resSurvey").value!==""){
+            params+="&resSurvey=MODULE_SESSION:getResult(Ris):-"+document.getElementById("resSurvey").value;           
+        }
+        if(document.getElementById("preProlog").value!==""){
+            document.getElementById("preProlog").value.split("\n").forEach(
+                function(el){
+                    params+="&preProlog"+index+"="+el; 
+                    index++;
+                }
+            );          
+        }
+        
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                   document.getElementById("dellSessionResp").innerHTML = this.responseText;
+                   document.getElementById("saveResp").innerHTML = this.responseText;
             }
         };
         xhttp.send(params);

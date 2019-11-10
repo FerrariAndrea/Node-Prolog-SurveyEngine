@@ -1,6 +1,7 @@
 // REMEMBER------------>the word "MODULE_SESSION:" is reserved
-const {readX,load,clear,exeAndRead,exe} = require('./prolog');
+const {load,clear,exeAndRead,exe} = require('./prolog');
 const swipl = require('swipl');
+const {existFile,save} = require('./pl/nameResolver');
 
 // function decript(element){
 //     if(element!==undefined){
@@ -15,15 +16,15 @@ const swipl = require('swipl');
 //     }
  
 // }
+
+
 function clearClause(element,sessionID){
     if(element!==undefined){
        return  element.replace('user'+sessionID+':','');
     }else{
         return "";
     }
- 
 }
-
 class PorlogEngine{
     constructor(){
        swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');
@@ -127,6 +128,47 @@ class PorlogEngine{
 
 };
 
+PorlogEngine.SaveFile = function(json){
+    //   {name:'provaNome', 
+    //     id0:'MODULE_SESSION:answer(1,domanda1,X,3)', 
+    //     id0:'MODULE_SESSION:answer(1,domanda1,X,2):-assert(MODULE_SESSION:prova(X))', 
+    //     id0:MODULE_SESSION:answer(2,domanda2,si,3), 
+    //     id0:MODULE_SESSION:answer(3,domanda3,X,4), 
+    //     id0:MODULE_SESSION:answer(2,domanda2,no,4), 
+    //     id0:MODULE_SESSION:answer(3,domanda3,ok,0)}'
+    //  }
+    var status = "errore generico"
+    var name = "";
+    var content = "";
+    var preprolog ="";
+    var ris ="";
+    Object.keys(json).forEach(function(k){
+        if(k==='name'){
+            name=json[k];
+        }else if(k[0]==='i' && k[1]==='d'){
+            content+=json[k]+"\n";
+        }else if(k[0]==='p' && k[1]==='r'){
+            preprolog+=json[k]+"\n";
+        }else if(k[0]==='r' && k[1]==='e'){
+            ris+=json[k];
+        }else{
+            console.log("Unknow KEY: "+ k+ ", value: ",json[k]);
+        }
+    });
+    // console.log("Nome: "+name );
+    // console.log("Content: "+content );
+    // console.log("Preprolog: "+preprolog );
+    // console.log("Ris: "+ris );
+    if(existFile('./appServer/prolog/pl/'+name+".pl")){
+        return "Nome già esistente."
+    }else{
+        if(save('./appServer/prolog/pl/'+name+".pl",preprolog+content+ris)){
+            return "Modulo salvato."
+        }else{
+            return "Impossibile salvare il nuovo modulo."
+        }
+    }
+};
 
 PorlogEngine.Istance = new PorlogEngine();
 module.exports = PorlogEngine;

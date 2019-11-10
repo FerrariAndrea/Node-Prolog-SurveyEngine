@@ -42,19 +42,49 @@
 	</div>
 	<br>
 	<div id="selectedDiv"  style="background-color:rgb(44, 38, 85);color: white;">
-			<center>
-				<br>
-				<label>Crea arco</label>
-				<br><br>
-				<label>Nodo sorgente: </label><label id="nodoSorgente"></label><br>
-				<label>Nodo destinazione: </label><label id="nodoDestinazione"></label>			
-				<br><br>
-				<button  onclick="addArc();" class="myButton">Aggiungi l'arco</button>	
-				<br><br><br>
-			</center>
+		<table style="width:100%">
+			
+			<tr>
+			  <td>
+				<center>
+					<br>
+					<label>Aggiungi prolog</label>
+					<br><br>
+					<label>Ricorda di usare 'MODULE_SESSION:' davanti a ogni clausola</label><br>
+					<textarea id="preProlog" rows="6" cols="70">
+						
+					</textarea>
+					<br><br><br>
+				</center>
+			  </td>
+			  <td>
+				<center>
+					<br>
+					<label>Crea arco</label>
+					<br><br>
+					<label>Nodo sorgente: </label><label id="nodoSorgente"></label><br>
+					<label>Nodo destinazione: </label><label id="nodoDestinazione"></label>			
+					<br><br>
+					<button  onclick="addArc();" class="myButton">Aggiungi l'arco</button>	
+					<br><br><br>
+				</center>
+			  </td>
+			  <td>
+				<center>
+					<br>
+					<label>Aggiungi risultato survey</label>
+					<br><br>					
+					<label>MODULE_SESSION:getResult(Ris):-</label><input type="text" id="resSurvey">
+					<br><br><br>
+				</center>
+			  </td>
+			</tr>
+		  </table>
+		
 	</div>
 	<div id="graph" style="color: white;">
 		<label style="text-align: left;" id="nodeSelectedInfo"></label>
+		<br>
 		<button style="text-align: left;" onclick="dellNode();" class="myButton">Elimina nodo</button>
 		<button style="text-align: left;" onclick="setSorgente();" class="myButton">Imposta come sorgente</button>
 		<button style="text-align: left;" onclick="setDestinazione();" class="myButton">Imposta come destinazione</button>

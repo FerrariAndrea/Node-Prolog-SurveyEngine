@@ -1,0 +1,6 @@
+MODULE_SESSION:p(X,Y):-Y is X 2
+MODULE_SESSION:m(X,Y):-Y is X-2
+MODULE_SESSION:answer(2,d2,X,-1):-MODULE_SESSION:p(X,Y),assert(MODULE_SESSION:mem(Y)))
+MODULE_SESSION:answer(1,d1,no,-1)
+MODULE_SESSION:answer(1,d1,si,2)
+MODULE_SESSION:getResult(Ris):-MODULE_SESSION:mem(Ris)

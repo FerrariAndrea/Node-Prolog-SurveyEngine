@@ -10,7 +10,7 @@ const fs = require('fs');
 const PrologTestUnit = require('./prolog/test');
 const PorlogEngine = require('./prolog/prologEngine');
 const Session = require('./prolog/session');
-const resolveModuleName = require('./prolog/pl/nameResolver');
+const {resolveModuleName,getAllModulesName} = require('./prolog/pl/nameResolver');
 
 var url = require('url');
 
@@ -80,6 +80,11 @@ app.get('/create', function (req, res) {
 /*
 * ====================== CMD ================
 */
+
+app.get('/getModulesNames', function (req, res) {
+	console.log("getModulesNames");
+	getAllModulesName(path.join(__dirname, '/prolog/pl'),res);		
+});
 app.get('/init', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var typeInit = url_parts.query.typeInit;
@@ -175,9 +180,7 @@ app.get('/dellSessions', function (req, res) {
 	}	
 });
 app.post('/save', function (req, res) {
-	console.log("save");
-	console.log(req.body)
-	res.send('<p style="color: red;">ok</p>')
+	res.send('<p style="color: red;">'+PorlogEngine.SaveFile(req.body)+'</p>')
 });
 /*
 * ====================== TEST ================
