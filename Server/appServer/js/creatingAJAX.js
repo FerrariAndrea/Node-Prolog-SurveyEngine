@@ -81,6 +81,9 @@ function addAns() {
         myNodes.push(new Answer("END NODE",actualID,true));
     }
     var ans = document.getElementById("newAns").value;
+    if(ans[0]!=="'"){
+        ans="'"+ans+"'";
+    }
     const actualID= graph.newNode({label: ans,info: ans}).id;   
     myNodes.push(new Answer(ans,actualID));
 }
