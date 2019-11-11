@@ -88,7 +88,7 @@ app.get('/getModulesNames', function (req, res) {
 app.get('/init', function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var typeInit = url_parts.query.typeInit;
-	Session.Clean(PorlogEngine.Istance.DellSession);
+	Session.Clean(PorlogEngine.Istance.DellSession);//elimino le sessioni inattive
 	var s =Session.Create();
 	console.log("Init of "+typeInit + ", as session: user"+s.GetMyId());
 	try{
@@ -99,6 +99,34 @@ app.get('/init', function (req, res) {
 		res.send('<p style="color: red;">Error on init of '+typeInit+'</p>')
 	}
 	
+});
+app.get('/resetSurvey', function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var s = Session.Get(url_parts.query.MyId);
+	var typeInit = url_parts.query.typeInit;
+	if(s!==null){		
+		PorlogEngine.Istance.DellSession(s);
+		try{
+			PorlogEngine.Istance.Init(resolveModuleName(typeInit),s);
+			try{
+				var ans =PorlogEngine.Istance.StartSurvey(s);
+				if(ans!==false){
+						res.send('<p style="color: white;">'+ans+'</p>')
+				}else{
+					console.log("resetSurvey error: PorlogEngine.Istance.StartSurvey()==false");
+					res.send('<p style="color: red;">Error on startSurvey</p>')
+				}
+			}catch(err){
+				console.log("resetSurvey error: "+ err);
+				res.send('<p style="color: red;">Error on startSurvey</p>')
+			}	
+		}catch(err){
+			console.log("resetSurvey error: "+ err);
+			res.send('<p style="color: red;">Error on init of '+typeInit+'</p>')
+		}
+	}else{
+		res.send('<p style="color: red;">Sessione scaduta.</p>')		
+	}
 });
 app.get('/startSurvey', function (req, res) {
 	var url_parts = url.parse(req.url, true);

@@ -21,8 +21,10 @@ module.exports={
                  console.log('Unable to scan directory: ' + err);
             }else{
                 files.forEach(function(el){
-                    const ell = el.substring(0, el.length-3);;
-                    ris+='<option value="'+ell+'">'+ell+'</option>';	   
+                    if(el!=="AnswerEngine.pl"){
+                        const ell = el.substring(0, el.length-3);
+                        ris+='<option value="'+ell+'">'+ell+'</option>';
+                    }                   	   
                 });
             }         
             res.send(ris);  
