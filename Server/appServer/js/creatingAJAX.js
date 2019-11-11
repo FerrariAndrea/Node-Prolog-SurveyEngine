@@ -48,14 +48,17 @@ function addArc() {
             var compr = prompt("Inserire il comportamento in prolog, ricorda che se hai inserito 'X', questa è una variabile prolog.\n"+
             " Puoi lasciare vuoto il campo se non vuoi comportamento.\n"+
             "Ricorda di usare 'MODULE_SESSION:' davanti a ogni clausola.", "");
-            var l ;
-            if(compr!==undefined && compr.length>0){
-                 l = (risposta+":-"+compr);
-            }else{
-                l=risposta;
-            }          
-            const actualID= graph.newEdge(actualS, actualD,{label:l, risp:risposta,comp:compr }).id;
-            myArcs.push(new Arc(actualID,risposta,compr,actualS,actualD));
+            if(compr !== null){
+                var l ;
+                if(compr!==undefined && compr.length>0){
+                     l = (risposta+":-"+compr);
+                }else{
+                    l=risposta;
+                }          
+                const actualID= graph.newEdge(actualS, actualD,{label:l, risp:risposta,comp:compr }).id;
+                myArcs.push(new Arc(actualID,risposta,compr,actualS,actualD));
+            }
+          
         }
     }else{
         alert("Non hai selezionato alcuna sorgente o destinazione per arco.");
@@ -111,7 +114,7 @@ function dellNode(){
                 {
                     if(endes[i].target.id==id || endes[i].source.id==id ){
                         graph.removeEdge(endes[i]);
-                        myArcs= myArcs.fill(function(el){return !el.is(endes[i].id);});
+                        myArcs= myArcs.filter(function(el){return !el.is(endes[i].id);});
                         countEdgesDel++;
                     }
                 }
@@ -212,8 +215,13 @@ function save(){
       
         params+="name="+ document.getElementById("name").value;
         myArcs.forEach(arc => {
-            params+="&id"+index +"="+ arc.getAnsProlog();   
-            index++;          
+            try{
+                params+="&id"+index +"="+ arc.getAnsProlog();   
+                index++;  
+            }catch(err){
+                alert("Arco scartato: "+ err)
+            }
+                    
         });
         if(document.getElementById("resSurvey").value!==""){
             params+="&resSurvey=MODULE_SESSION:getResult(Ris):-"+document.getElementById("resSurvey").value;           

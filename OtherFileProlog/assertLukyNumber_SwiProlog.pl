@@ -22,3 +22,6 @@ assert(answer(6,'Il tuo colore preferito è chiaro?','no',7):-addToluckyNumber(3
 assert(answer(7,'Scrivi il tuo nome:',Nome,8):-(atom_length(Nome,X),addToluckyNumber(X),X>=6)).
 assert(answer(7,'Scrivi il tuo nome:',Nome,-1):-(atom_length(Nome,X),addToluckyNumber(X),X<6)).
 assert(answer(8,'Scrivi il tuo cognome:',Cognome,-1):-(atom_length(Cognome,X),addToluckyNumber(-X))).
+
+
+(MODULE_SESSION:vass(X),MODULE_SESSION:pres(Y),Y>=X,assert(MODULE_SESSION:pres(X)),assert(MODULE_SESSION:sottoassicurazione(false),assert(MODULE_SESSION:coefSottAss(Z))))
