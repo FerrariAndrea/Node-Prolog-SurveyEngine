@@ -3801,3 +3801,17 @@
 ::ffff:11.0.0.2 - GET /HNAP1/ HTTP/1.1 200 1901 - 3.188 ms
 ::1 - GET /style.css HTTP/1.1 304 - - 0.875 ms
 ::1 - POST /save HTTP/1.1 200 42 - 19.813 ms
+::1 - GET /create HTTP/1.1 200 3203 - 1.621 ms
+::1 - GET /style.css HTTP/1.1 200 1003 - 1.547 ms
+::1 - GET /creatingAJAX.js HTTP/1.1 200 8748 - 4.101 ms
+::1 - GET /graph.js HTTP/1.1 200 5239 - 2.440 ms
+::1 - GET /springy.js HTTP/1.1 200 20584 - 3.458 ms
+::1 - GET /springyui.js HTTP/1.1 200 12539 - 4.701 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 0.544 ms
+::1 - GET /create HTTP/1.1 200 3203 - 19.054 ms
+::1 - GET /style.css HTTP/1.1 200 1003 - 5.871 ms
+::1 - GET /creatingAJAX.js HTTP/1.1 200 8748 - 7.493 ms
+::1 - GET /graph.js HTTP/1.1 200 5239 - 5.604 ms
+::1 - GET /springy.js HTTP/1.1 200 20584 - 6.598 ms
+::1 - GET /springyui.js HTTP/1.1 200 12539 - 7.224 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 0.511 ms
