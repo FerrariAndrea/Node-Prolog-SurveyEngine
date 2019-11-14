@@ -93,6 +93,7 @@ app.get('/init', function (req, res) {
 	console.log("Init of "+typeInit + ", as session: user"+s.GetMyId());
 	try{
 		PorlogEngine.Istance.Init(resolveModuleName(typeInit),s);
+		PorlogEngine.Istance.setSurveyName(typeInit+".pl");
 		res.send('<p style="color: green;">Init of '+typeInit+' success</p><input type="hidden" id="UserId" name="UserId" value="'+s.GetMyId()+'">')
 	}catch(err){
 		console.log("Init error: "+ err);
@@ -135,6 +136,7 @@ app.get('/startSurvey', function (req, res) {
 		console.log("StartSurvey [session: user"+s.GetMyId()+"]");
 		try{
 			var ans =PorlogEngine.Istance.StartSurvey(s);
+			PorlogEngine.Istance.getCacheSuggest();
 			if(ans!==false){
 					res.send('<p style="color: white;">'+ans+'</p>')
 			}else{
@@ -168,6 +170,7 @@ app.get('/setResp', function (req, res) {
 			}
 		}else{
 			var oldAns =PorlogEngine.Istance.GetLocalAnswer(s);
+			PorlogEngine.Istance.getCacheSuggest();
 			//QUI SI POTRBBE FARE DEL REASONING per capire le risposte possibili da dare
 			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
 		}

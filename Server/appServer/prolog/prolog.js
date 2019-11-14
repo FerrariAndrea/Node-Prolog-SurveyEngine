@@ -82,6 +82,24 @@ module.exports ={
             }
             line++;
         });
+    },
+    loadInCache: function(module_name){       
+        var contents = fs.readFileSync('./appServer/prolog/cache/'+module_name, 'utf8');
+        var line =0;
+        contents.split('\n').forEach(function(element) {
+            if(element!==undefined && element[0]!=='%'  && element.length>0){
+                const clause='assert('+element+')';
+               try{
+                if(!swipl.call(clause)){
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+ clause)
+                  }
+               }catch(err){
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+clause+". \n\t\t Error:"+err)
+               }
+             
+            }
+            line++;
+        });
     }
 
     

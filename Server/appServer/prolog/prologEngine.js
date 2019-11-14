@@ -2,7 +2,7 @@
 const {load,clear,exeAndRead,exe} = require('./prolog');
 const swipl = require('swipl');
 const {existFile,save} = require('./pl/nameResolver');
-
+const CacheUtils = require('./cacheUtils');
 // function decript(element){
 //     if(element!==undefined){
 //         if(element.name!==undefined && element.args!==undefined){
@@ -28,8 +28,13 @@ function clearClause(element,sessionID){
 class PorlogEngine{
     constructor(){
        swipl.call('assert(clear_module(Module):-(PredicateIndicator= Module:_,forall(current_predicate(PredicateIndicator), abolish(PredicateIndicator))))');
-      
+       this.actualSurvey =null;
+       this.actualID =1;
+       this.setSurveyName = function(surveyName){
+            this.actualSurvey=surveyName;
+       }
        this.Init=function (module_name,session){
+            CacheUtils.Istance.loadOne(this.actualSurvey);
             clear(session.GetMyId());
             if(module_name!==undefined){
                 if(Array.isArray(module_name)){
@@ -46,7 +51,8 @@ class PorlogEngine{
                    var ris = exeAndRead('getActualAnswer(X)',session.GetMyId());
                    console.log("-------->",ris)
                    if(ris.length>0 && ris[0].X !== undefined){
-                     session.localAnswer=ris[0].X;
+                      session.localAnswer=ris[0].X;
+                      this.actualID=1;
                       return ris[0].X;
                    }else{                       
                      return false;
@@ -55,15 +61,34 @@ class PorlogEngine{
                     return false;
                }
        };
+       this.getCacheSuggest=function(){
+            var query=  new swipl.Query("cache('"+ this.actualSurvey +"',"+ this.actualID + ",X)"); 
+                
+           try{
+               var ret= true;
+                var ris= Array();     
+                while (ret!==false) {
+                    ret = query.next();
+                    ris.push(ret);                    
+                }
+                console.log("--------->",ris);
+           }catch(err){
+                console.log("No suggest, err: ", err)
+            }
+             
+            
+            query.close();
+       };
        this.SetResp=function(resp,session){
-           
            const ris =exe("setResponse("+resp+")",session.GetMyId());
             if(ris){
                 var x =exeAndRead('nextAnswer(X)',session.GetMyId());
                 if(x.length>0 && x[0].X>0){        
                     var ans = exeAndRead('getActualAnswer(X)',session.GetMyId());
                     if(ans.length>0 && ans[0].X !== undefined){
-                        session.localAnswer=ans[0].X;
+                       session.localAnswer=ans[0].X;
+                       CacheUtils.Istance.add(this.actualSurvey, this.actualID ,resp);
+                       this.actualID =x[0].X;
                        return session.localAnswer;
                     }else{     
                         console.log("Error to handle?");                  
