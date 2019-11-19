@@ -4069,3 +4069,15 @@
 ::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 112 - 7.395 ms
 ::1 - GET /startSurvey?MyId=2 HTTP/1.1 304 - - 15.954 ms
 ::1 - GET /setResp?MyId=2&respToAns=si HTTP/1.1 304 - - 10.643 ms
+::1 - GET / HTTP/1.1 200 1901 - 27.043 ms
+::1 - GET /style.css HTTP/1.1 200 1003 - 21.343 ms
+::1 - GET /requestAJAX.js HTTP/1.1 200 4195 - 29.402 ms
+::1 - GET /springy.js HTTP/1.1 200 21319 - 31.774 ms
+::1 - GET /graph.js HTTP/1.1 200 5239 - 47.151 ms
+::1 - GET /springyui.js HTTP/1.1 200 12933 - 60.660 ms
+::1 - GET /getModulesNames HTTP/1.1 200 226 - 2.543 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 16.088 ms
+::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 112 - 21.412 ms
+::1 - GET /getIA?MyId=1 HTTP/1.1 200 1598 - 3.419 ms
+::1 - GET /startSurvey?MyId=1 HTTP/1.1 200 42 - 17.018 ms
+::1 - GET /setResp?MyId=1&respToAns=si HTTP/1.1 200 57 - 5.890 ms
