@@ -11,7 +11,7 @@ const PrologTestUnit = require('./prolog/test');
 const PorlogEngine = require('./prolog/prologEngine');
 const Session = require('./prolog/session');
 const {resolveModuleName,getAllModulesName} = require('./prolog/pl/nameResolver');
-
+const CacheUtils = require('./prolog/cacheUtils');
 var url = require('url');
 
 var app = express();
@@ -77,6 +77,19 @@ app.get('/create', function (req, res) {
 	res.render("create");
 });
 
+
+//------------------html utils
+function generateSugList(list){
+	var htmlstr = "<br><ol>";
+	if(list.length===0){
+		return "";
+	}
+	list.forEach(element => {
+		htmlstr+="<li>"+ element+"</li>";
+	});
+	htmlstr+="</ol>";
+	return htmlstr;
+}
 /*
 * ====================== CMD ================
 */
@@ -92,7 +105,8 @@ app.get('/init', function (req, res) {
 	var s =Session.Create();
 	console.log("Init of "+typeInit + ", as session: user"+s.GetMyId());
 	try{
-		PorlogEngine.Istance.Init(resolveModuleName(typeInit),s);
+		PorlogEngine.Istance.Init(resolveModuleName(typeInit),s);		
+		CacheUtils.Istance.loadOne(typeInit+".pl");
 		PorlogEngine.Istance.setSurveyName(typeInit+".pl");
 		res.send('<p style="color: green;">Init of '+typeInit+' success</p><input type="hidden" id="UserId" name="UserId" value="'+s.GetMyId()+'">')
 	}catch(err){
@@ -112,7 +126,7 @@ app.get('/resetSurvey', function (req, res) {
 			try{
 				var ans =PorlogEngine.Istance.StartSurvey(s);
 				if(ans!==false){
-						res.send('<p style="color: white;">'+ans+'</p>')
+						res.send('<p style="color: white;">'+ans+'</p>'+generateSugList(PorlogEngine.Istance.getCacheSuggest()))
 				}else{
 					console.log("resetSurvey error: PorlogEngine.Istance.StartSurvey()==false");
 					res.send('<p style="color: red;">Error on startSurvey</p>')
@@ -136,9 +150,9 @@ app.get('/startSurvey', function (req, res) {
 		console.log("StartSurvey [session: user"+s.GetMyId()+"]");
 		try{
 			var ans =PorlogEngine.Istance.StartSurvey(s);
-			PorlogEngine.Istance.getCacheSuggest();
+			
 			if(ans!==false){
-					res.send('<p style="color: white;">'+ans+'</p>')
+					res.send('<p style="color: white;">'+ans+'</p>' + generateSugList(PorlogEngine.Istance.getCacheSuggest()))
 			}else{
 				console.log("StartSurvey error: PorlogEngine.Istance.StartSurvey()==false");
 				res.send('<p style="color: red;">Error on startSurvey</p>')
@@ -162,7 +176,7 @@ app.get('/setResp', function (req, res) {
 		var ans =PorlogEngine.Istance.SetResp(respToAns,s);
 		if(ans!==null){
 			if(ans!==false){
-				res.send('<p style="color: white;">'+ans+'</p>')
+				res.send('<p style="color: white;">'+ans+'</p>'+generateSugList(PorlogEngine.Istance.getCacheSuggest()))
 			}else{
 				var result=PorlogEngine.Istance.GetResult(s);
 				console.log("------>", result)
@@ -170,9 +184,7 @@ app.get('/setResp', function (req, res) {
 			}
 		}else{
 			var oldAns =PorlogEngine.Istance.GetLocalAnswer(s);
-			PorlogEngine.Istance.getCacheSuggest();
-			//QUI SI POTRBBE FARE DEL REASONING per capire le risposte possibili da dare
-			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>')
+			res.send('<p style="color: red;">Your answer is invalid</p><br><p style="color: white;">'+oldAns+'</p>'+generateSugList(PorlogEngine.Istance.getCacheSuggest()))
 		}
 	}catch(err){
 		console.log("SetResp error: "+ err);

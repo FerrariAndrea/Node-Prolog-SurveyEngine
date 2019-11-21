@@ -34,7 +34,6 @@ class PorlogEngine{
             this.actualSurvey=surveyName;
        }
        this.Init=function (module_name,session){
-            CacheUtils.Istance.loadOne(this.actualSurvey);
             clear(session.GetMyId());
             if(module_name!==undefined){
                 if(Array.isArray(module_name)){
@@ -62,22 +61,35 @@ class PorlogEngine{
                }
        };
        this.getCacheSuggest=function(){
-            var query=  new swipl.Query("cache('"+ this.actualSurvey +"',"+ this.actualID + ",X)"); 
-                
+            var query=  new swipl.Query("getCache('"+ this.actualSurvey +"',"+ this.actualID + ",X)"); 
+               
+            var orderedList = new Array();  
            try{
                var ret= true;
-                var ris= Array();     
+                var ris= new Array();   
                 while (ret!==false) {
                     ret = query.next();
                     ris.push(ret);                    
+                }                
+                if(ris[0]!==false){
+                    var acc =  ris[0].X;
+                    do{
+                       // console.log("acc----->",acc)
+                        if(acc.head!==undefined){
+                            orderedList.push(acc.head);
+                            acc = acc.tail;
+                        }
+                    }while(acc.tail!==undefined)                    
+                   
                 }
-                console.log("--------->",ris);
+               
+               // console.log("--------->",orderedList);
            }catch(err){
                 console.log("No suggest, err: ", err)
-            }
-             
+            }             
             
             query.close();
+            return orderedList;
        };
        this.SetResp=function(resp,session){
            const ris =exe("setResponse("+resp+")",session.GetMyId());

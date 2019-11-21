@@ -83,7 +83,11 @@ function setResp() {
         }
     };
     var id=document.getElementById("UserId").value;
-    xhttp.open("GET", "/setResp?MyId="+id+"&respToAns="+ document.getElementById("myAns").value, true);
+    var resp =  document.getElementById("myAns").value;
+    if(isNaN(resp) && !( resp[0]==="'" && resp[resp.length-1]==="'")){
+        resp="'"+resp+"'";
+    }
+    xhttp.open("GET", "/setResp?MyId="+id+"&respToAns="+resp, true);
     xhttp.send();
 }
 

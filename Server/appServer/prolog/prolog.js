@@ -88,13 +88,12 @@ module.exports ={
         var line =0;
         contents.split('\n').forEach(function(element) {
             if(element!==undefined && element[0]!=='%'  && element.length>0){
-                const clause='assert('+element+')';
                try{
-                if(!swipl.call(clause)){
-                    console.log("Fail load module "+ module_name+"["+line+"]: "+ clause)
+                if(!swipl.call(element)){
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+ element)
                   }
                }catch(err){
-                    console.log("Fail load module "+ module_name+"["+line+"]: "+clause+". \n\t\t Error:"+err)
+                    console.log("Fail load module "+ module_name+"["+line+"]: "+element+". \n\t\t Error:"+err)
                }
              
             }

@@ -3,6 +3,9 @@ cache('LukyNumber.pl',2,3,4).
 cache('LukyNumber.pl',1,no,5).
 cache('LukyNumber.pl',2,si,3).
 cache('LukyNumber.pl',3,5,1).
+%------------add
+addCache(S,ID,RISP,COUNT2):-cache(S,ID,RISP,COUNT),retract(cache(S,ID,RISP,COUNT)),COUNT2 is COUNT+1,assert(cache(S,ID,RISP,COUNT2)),!.
+addCache(S,ID,RISP,1):-assert(cache(S,ID,RISP,1)).
 %------------sort
 insert_sort(List,Sorted):-i_sort(List,[],Sorted).
 i_sort([],Acc,Acc).
