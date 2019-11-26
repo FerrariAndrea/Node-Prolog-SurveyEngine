@@ -4344,3 +4344,15 @@
 ::1 - GET /springy.js HTTP/1.1 304 - - 4.018 ms
 ::1 - GET /springyui.js HTTP/1.1 304 - - 5.109 ms
 ::1 - GET /getModulesNames HTTP/1.1 304 - - 2.624 ms
+::1 - GET / HTTP/1.1 200 1901 - 84.945 ms
+::1 - GET /requestAJAX.js HTTP/1.1 200 4324 - 29.526 ms
+::1 - GET /graph.js HTTP/1.1 200 5239 - 34.086 ms
+::1 - GET /style.css HTTP/1.1 200 1003 - 41.516 ms
+::1 - GET /springy.js HTTP/1.1 200 21319 - 30.885 ms
+::1 - GET /springyui.js HTTP/1.1 200 12933 - 31.606 ms
+::1 - GET /favicon.ico HTTP/1.1 200 - - 13.568 ms
+::1 - GET /getModulesNames HTTP/1.1 200 226 - 4.624 ms
+::1 - GET /init?typeInit=LukyNumber HTTP/1.1 200 112 - 57.946 ms
+::1 - GET /getIA?MyId=1 HTTP/1.1 200 1592 - 8.656 ms
+::1 - GET /startSurvey?MyId=1 HTTP/1.1 200 77 - 16.039 ms
+::1 - GET /setResp?MyId=1&respToAns=%27no%27 HTTP/1.1 200 138 - 101.319 ms
