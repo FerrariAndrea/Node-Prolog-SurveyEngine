@@ -27,7 +27,7 @@ class CacheUtils{
             //che rifarà tutto il lavoro tramite la "addCache"
             var clause= "addCache('"+survey+"',"+id+ ","+resp+",X)";
             var ok =swipl.call(clause);
-            console.log("----actual count-->"+ok.X)
+            //console.log("----actual count-->"+ok.X)
             if(ok.X>0){
                 insert(survey,clause);
                 return true;

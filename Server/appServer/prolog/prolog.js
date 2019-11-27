@@ -49,7 +49,7 @@ module.exports ={
         //console.log("*********----------->", ris);
        // if(ris.length>1 || ris[0]!==false){
         //    console.log("[***] Query exe chiusa!!!!!!!")
-            query.close();
+        query.close();
        // }
         return(ris); 
     },

@@ -41,7 +41,7 @@ module.exports={
     },
     save : function(name,data){
         try{
-            fs.appendFile(name, data);
+            fs.appendFile(name, data,function(err){console.log("Impossibile salvare il file: "+err);});
             return true;
         }catch(err){
             console.log("Save error: "+err);
